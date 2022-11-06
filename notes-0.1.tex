@@ -1,0 +1,157 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+	v 0.2 \\
+{\large\textbf{Some more notes about iSTL}}
+}
+\\
+\setcounter{section}{-1}
+\section{Notation} In the following $\Gamma$, $\Sigma$ and $\Pi$ are names for finite multi-sets of formulas, $\Delta$ for sub-singleton of some formula, $A$, $B$ and $C$ for formulas, $p$ for propositional variables and $n$, $l$, $r$ and $k$ for natural numbers. We denote by $P$ the set of all propositional variables, and by $P(A)$ the set of those that occur in the formula $A$.
+
+We will write $A$ for the singleton $\{A\}$ where ever it is inferable from the context.
+``$,$'' is the multi-set union.
+We will also write $A^1$ for $\{A\}$, write $A^{n+1}$ for $A^n, A$, write $\Gamma^n$ for $\{ A^n : A \in \Gamma \}$ and write $P(\Gamma)$ for $\bigcup_{A \in \Gamma} P(A)$
+
+A sequent $\Gamma \Rightarrow \Delta$ is a binary relation between $\Gamma$, a multi-set of formulas, and $\Delta$, a sub-singleton of some formula
+
+We will also write $\Box A$ for $\top \rightsquigarrow A$.
+
+\section{Additional Rules}
+
+
+\begin{prooftree}
+	\RightLabel{$L$}
+	\AXC{$\Gamma, A \Rightarrow \Delta$}
+	\UIC{$\Gamma, \nabla A \Rightarrow \Delta$}
+\end{prooftree}
+
+\begin{prooftree}
+	\RightLabel{$R$}
+	\AXC{$\nabla \Gamma, \Sigma \Rightarrow \Delta$}
+	\UIC{$\Gamma, \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+
+\begin{prooftree}
+	\RightLabel{$Fa$}
+	\AXC{$\Gamma , A \Rightarrow B$}
+	\UIC{$\Gamma \Rightarrow \nabla(A \rightsquigarrow B)$}
+\end{prooftree}
+
+\begin{prooftree}
+	\RightLabel{$Fu$}
+	\AXC{$\nabla \Gamma \Rightarrow \nabla A$}
+	\UIC{$\Gamma \Rightarrow A$}
+\end{prooftree}
+
+\proposition
+$\istl \vdash \nabla \Box A \Rightarrow A \Rightarrow \Box \nabla A$
+
+\begin{prooftree}
+	\AXC{$\Rightarrow \top$}
+
+	\AXC{$A \Rightarrow A$}
+
+	\RightLabel{$L\rightsquigarrow$}
+	\BIC{$\nabla (\top \rightsquigarrow A) \Rightarrow A$}
+\end{prooftree}
+
+\begin{prooftree}
+	\AXC{$\nabla A \Rightarrow \nabla A$}
+	
+	\RightLabel{$Lw$}
+	\UIC{$\nabla A , \top \Rightarrow \nabla A$}
+
+	\RightLabel{$R\rightsquigarrow$}
+	\UIC{$A \Rightarrow \top \rightsquigarrow \nabla A$}
+\end{prooftree}
+
+
+\proposition
+$L \dashv\vdash_{\istl} \nabla A \Rightarrow A$
+
+\proposition
+$L \dashv\vdash_{\istl} A \Rightarrow \Box A$
+
+\proposition
+$\istl + L + \{\Gamma, A \Rightarrow B\} \vdash \Gamma \Rightarrow A \rightsquigarrow B$
+
+\proposition
+$R \dashv\vdash_{\istl} A \Rightarrow \nabla A$
+
+\proposition
+$R \dashv\vdash_{\istl} \Box A \Rightarrow A$
+
+\proposition
+$\istl + R \vdash A, A \rightsquigarrow B \Rightarrow B$
+
+\proposition
+$\istl + \mathbf{L} + \mathbf{R} \vdash A \Leftrightarrow \nabla A$
+
+\begin{prooftree}
+	\AXC{$\nabla A \Rightarrow \nabla A$}
+	\RightLabel{$R$}
+	\UIC{$A \Rightarrow \nabla A$}
+\end{prooftree}
+
+\begin{prooftree}
+	\AXC{$A \Rightarrow A$}
+	\RightLabel{$L$}
+	\UIC{$\nabla A \Rightarrow A$}
+\end{prooftree}
+
+\proposition
+$\istl + \mathbf{Fa} \vdash A \Leftrightarrow \nabla \Box A$
+
+\begin{prooftree}
+	\RightLabel{$Fa$}
+	\AXC{$A, \top \Rightarrow A$}
+	\UIC{$A \Rightarrow \nabla(\top \rightsquigarrow A)$}
+\end{prooftree}
+
+\proposition
+$\istl + \mathbf{Fu} \vdash \Box \nabla A \Leftrightarrow A$
+
+\begin{prooftree}
+	\AXC{$\Rightarrow \top$}
+	\AXC{$\nabla A \Rightarrow \nabla A$}
+	\RightLabel{$L \rightsquigarrow$}
+	\BIC{$\nabla (T \rightsquigarrow \nabla A) \Rightarrow \nabla A$}
+	\RightLabel{$Fu$}
+	\UIC{$T \rightsquigarrow \nabla A \Rightarrow A$}
+\end{prooftree}
+
+\proposition
+$\istl \vdash A \wedge \nabla (A \rightsquigarrow B) \Rightarrow B$
+
+\begin{prooftree}
+	\AXC{$A, B \Rightarrow B$}
+	\AXC{$A \Rightarrow A$}
+	\RightLabel{$R\rightsquigarrow$}
+	\BIC{$A, \nabla (A \rightsquigarrow B) \Rightarrow B$}
+	\doubleLine
+	\RightLabel{$L\wedge, Cut$}
+	\UIC{$A \wedge \nabla (A \rightsquigarrow B) \Rightarrow B$}
+	\RightLabel{$R\wedge$}
+\end{prooftree}
+
+\proposition
+$\istl + \mathbf{Fu} \vdash B \Rightarrow \nabla (A \rightsquigarrow B)$
+
+
+\proposition
+$\istl \vdash \Rightarrow A \rightsquigarrow B$ if and only if $\istl \vdash A \Rightarrow B$
+
+\begin{prooftree}
+	\AXC{$\Rightarrow A \rightsquigarrow B$}
+	\RightLabel{$N$}
+	\UIC{$\Rightarrow \nabla (A \rightsquigarrow B)$}
+	\AXC{$A \wedge \nabla (A \rightsquigarrow B) \Rightarrow B$}
+	\RightLabel{$Cut$}
+	\BIC{$A \Rightarrow B$}
+\end{prooftree}
+
+
+
+\end{document}
