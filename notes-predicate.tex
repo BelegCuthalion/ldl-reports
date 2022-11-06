@@ -1,0 +1,416 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+	v 0.1 \\
+{\large\textbf{Definition for $\stl_1$ and a proof sketch for its cut-elimination theorem}}
+}
+\\
+\setcounter{section}{-1}
+\section{Notation} In the following, we use $\Gamma$, $\Sigma$ and $\Pi$ for finite multi-sets of formulas, $\Delta$ for sub-singleton of some formula, $A$, $B$ and $C$ for formulas, $P$, $Q$ and $R$ for atomic formulas and $n$, $l$, $r$ and $k$ for natural numbers. $A[t/x]$ is the result of substituting variable $x$ with term $t$ in formula $A$.
+``$,$'' is the multi-set union.
+
+We define $\nabla^0 A$ to be the formula $A$, $\nabla^{n+1} A$ to be $\nabla \nabla^n A$, and $\nabla^n \Gamma$ to be $\{ \nabla^n A \mid A \in \Gamma \}$.
+
+We will also write $A$ or $A^1$ for the singleton $\{A\}$, write $A^{n+1}$ for $A^n, A$, and write $\Gamma^n$ for $\{ A^n : A \in \Gamma \}$.
+
+A sequent $\Gamma \Rightarrow \Delta$ is a binary relation between $\Gamma$, a multi-set of formulas, and $\Delta$, a sub-singleton of some formula
+
+We will also write $\Box A$ for $\top \rightarrow A$.
+
+\section{Definitions}
+
+\subsection{$\stl_1$} is the extension of $\stl$ with these rules for first-order quantifiers.
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Gamma, A[t/x] \Rightarrow \Delta$}
+    \RightLabel{$L \forall$}
+    \UIC{$\Gamma, \nabla \forall x A \Rightarrow \Delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\nabla \Gamma \Rightarrow  A[y/x]$}
+    \RightLabel{$R \forall$}
+    \UIC{$\Gamma, \Rightarrow \forall x A$}
+  \end{prooftree}
+  \center
+  \emph{Provided that $y$ is not free in the conclusion.}
+\end{multicols}\vspace*{1em}
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Gamma, A[y/x] \Rightarrow \Delta$}
+    \RightLabel{$L \exists$}
+    \UIC{$\Gamma, \exists x A \Rightarrow \Delta$}
+  \end{prooftree}
+  \center
+  \emph{Provided that $y$ is not free in the conclusion.}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Gamma \Rightarrow  A[t/x]$}
+    \RightLabel{$R \exists$}
+    \UIC{$\Gamma, \Rightarrow \exists x A$}
+  \end{prooftree}
+\end{multicols}
+
+\subsection{$\gstl_1$} is the extension of $\gstl$ with the following rules.
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Gamma, \nabla^n A[t/x] \Rightarrow \Delta$}
+    \RightLabel{$L \forall$}
+    \UIC{$\Gamma, \nabla^{n+1} \forall x A \Rightarrow \Delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\nabla \Gamma \Rightarrow  A[y/x]$}
+    \RightLabel{$R \forall$}
+    \UIC{$\Gamma, \Rightarrow \forall x A$}
+  \end{prooftree}
+  \center
+  \emph{Provided that $y$ is not free in the conclusion.}
+\end{multicols}\vspace*{1em}
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Gamma, \nabla^n A[y/x] \Rightarrow \Delta$}
+    \RightLabel{$L \exists$}
+    \UIC{$\Gamma, \nabla^n \exists x A \Rightarrow \Delta$}
+  \end{prooftree}
+  \center
+  \emph{Provided that $y$ is not free in the conclusion.}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Gamma \Rightarrow  A[t/x]$}
+    \RightLabel{$R \exists$}
+    \UIC{$\Gamma \Rightarrow \exists x A$}
+  \end{prooftree}
+\end{multicols}
+
+\section{$\stl_1 \dashv \vdash \gstl_1$}
+
+\subsection{Lemma} $\stl_1 \vdash \nabla^n \forall x A \Rightarrow \forall x \nabla^n A$. \\
+\emph{Proof.}\quad
+\begin{prooftree}
+  \AXC{}
+  \UIC{$A[y/x] \Rightarrow A[y/x]$}
+  \RightLabel{$L \forall$}
+  \UIC{$\nabla \forall x A \Rightarrow A[y/x]$}
+  \RightLabel{$N^n$} \doubleLine
+  \UIC{$\nabla^{n+1} \forall x A \Rightarrow \nabla^n A[y/x]$}
+  \RightLabel{$R \forall$}
+  \UIC{$\nabla^n \forall x A \Rightarrow \forall x \nabla^n A$}
+\end{prooftree}
+
+\subsection{Lemma} $\stl_1 \vdash \nabla^n \exists x A \Rightarrow \exists x \nabla^n A$. \\
+\emph{Proof.}\quad
+\begin{prooftree}
+  \AXC{}
+  \UIC{$A[t/x] \Rightarrow A[t/x]$}
+  \RightLabel{$L \exists$}
+  \UIC{$\exists x A \Rightarrow A[t/x]$}
+  \RightLabel{$N^n$} \doubleLine
+  \UIC{$\nabla^n \exists x A \Rightarrow \nabla^n A[t/x]$}
+  \RightLabel{$R \exists$}
+  \UIC{$\nabla^n \exists x A \Rightarrow \exists x \nabla^n A$}
+\end{prooftree}
+
+
+\subsection{Theorem} For any $\Gamma$ and $\Delta$
+$$\stl_1 \vdash \Gamma \Rightarrow \Delta \iff \gstl_1 \vdash \Gamma \Rightarrow \Delta $$
+\emph{Proof.} The left-to-right direction is obvious. For the other direction, use induction on the construction of $\gstl_1$ proof of $\Gamma \Rightarrow \Delta$. All propositional cases are handled as was shown before. It remains to check four new cases.
+\begin{enumerate}
+  \item[$L \forall$:] By cutting the first Lemma into IH.
+  \item[$R \forall$:] By applying $R \forall$ on IH.
+  \item[$L \exists$:] By cutting the second Lemma into IH.
+  \item[$R \exists$:] By applying $R \exists$ on IH.
+\end{enumerate}
+
+\section{Cut-elimination}
+\subsection{$\gstl_1^+$} is the same as $\gstl_1$, but the $cut$ rule is replaced with the following generalization.
+\begin{prooftree}
+  \AXC{$\Gamma \Rightarrow A$}
+  \AXC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$}
+  \RightLabel{$\nabla cut$}
+  \BIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+We refer to the set $\{\nabla^{n_i} A\}_{i \leq l}$ as \emph{the cut-burden} and the formula $A$ is called \emph{the cut-formula}.
+
+\subsection{Rank}
+of a formula $A$ is defined as
+\[ \rho(A) = \begin{cases}
+1 & \quad ; A \in P \cup \{ \bot, \top \} \\
+\rho(B) & \quad ; A = \nabla B \\
+max(\rho(B), \rho(C)) + 1 & \quad ; A = B \circ C \quad (\circ \in \{ \land, \lor, \rightarrow \}) \\
+\rho(B) + 1 & \quad ; A = QxB \quad (Q \in \{ \forall, \exists \})
+\end{cases} \]
+Notice that $\nabla$ does not increase the rank of a formula.
+
+We also define rank for rule instances and proof-trees as follows. Rank of an instance of the $\nabla cut$ rule with cut-data $(A, \{n_i\}_{i \leq l})$ is defined to be the rank of $A$. Rank of any other rule instance is $0$.
+For a proof tree $\mathcal{D}$, $\rho(\mathcal{D})$ is the maximum rank of all of its rule instances.
+
+\subsection{Remark} If $y$ is not free in $t$, then $A[s/y][t/x]$ is equal (syntactically) to $A[t/x][s[t/x]/y]$.
+
+\subsection{Lemma} The following substitution rule is admissible in $\gstl_1^+(S)$,  for any variable $x$ and any term $t$ free for $x$ in $\Gamma$ and $\Delta$..
+\begin{prooftree}
+  \AXC{$\Gamma \Rightarrow \Delta$}
+  \RightLabel{$[x/t]$}
+  \UIC{$\Gamma[t/x] \Rightarrow \Delta[t/x]$}
+\end{prooftree}
+
+\emph{Proof.} Induction on the structure of $\Gamma \Rightarrow \Delta$:
+The only non-trivial cases are those of $\nabla cut$ and the rules for quantifiers. The formulas are defined up to $\alpha$-equivalence, so we can choose the variable bound by the quantifiers such that it is different from $x$ and not free in $t$.
+
+Let $\mathcal{D}$ prove $\Gamma \Rightarrow \exists y A$ and ends with $R \exists$. IH gives a proof of $\Gamma[t/x] \Rightarrow A[s/y][t/x]$, which is equal to $\Gamma[t/x] \Rightarrow A[t/x][s[t/x]/y]$, by the previous Remark and the assumption that $y$ is different from $x$ and not free in $t$. Then, by $R \exists$ we would have $\Gamma[t/x] \Rightarrow \exists y (A[t/x])$, and since $y$ is not free in $t$, $\Gamma[t/x] \Rightarrow \exists y A [t/x]$.
+
+Let $\mathcal{D}$ prove $\Gamma, \nabla^n \exists y A \Rightarrow \Delta$ and ends with $L \exists$. IH gives a proof of $\Gamma[t/x], \nabla^n A[z/y][t/x] \Rightarrow \Delta[t/x]$, (where $z$ does not occure in any of the formulas) which is equal to $\Gamma[t/x], \nabla^n A[t/x][z/y] \Rightarrow \Delta[t/x]$. Then, by $L \exists$ we would have $\Gamma[t/x], \nabla^n \exists y (A[t/x]) \Rightarrow \Delta[t/x]$, and since $y$ is not free in $t$, $\Gamma[t/x], \nabla^n \exists y A [t/x] \Rightarrow \Delta[t/x]$.
+
+Let $\mathcal{D}$ prove $\Gamma \Rightarrow \forall y A$ and ends with $R \forall$. IH gives a proof of $\Gamma[t/x] \Rightarrow A[z/y][t/x]$ (where $z$ does not occure in any of the formulas), which is equal to $\Gamma[t/x] \Rightarrow A[t/x][z/y]$. Then, by $R \forall$ we would have $\Gamma[t/x] \Rightarrow \forall y (A[t/x])$, and since $y$ is not free in $t$, $\Gamma[t/x] \Rightarrow \forall y A [t/x]$.
+
+Let $\mathcal{D}$ prove $\Gamma, \nabla^{n+1} \forall y A \Rightarrow \Delta$ and ends with $L \forall$. IH gives a proof of $\Gamma[t/x], \nabla^n A[s/y][t/x] \Rightarrow \Delta[t/x]$, which is equal to $\Gamma[t/x], \nabla^n A[t/x][s[t/x]/y] \Rightarrow \Delta[t/x]$. Then, by $L \forall$ we would have $\Gamma[t/x], \nabla^{n+1} \forall y (A[t/x]) \Rightarrow \Delta[t/x]$, and since $y$ is not free in $t$, $\Gamma[t/x], \nabla^n \forall y A [t/x] \Rightarrow \Delta[t/x]$.
+
+
+
+\subsection{Theorem} If $\gstl_1^+(S)$ proves $\Gamma \Rightarrow A$ and $\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$ with proof-trees of ranks less than $\rho(A)$, then it also proves $\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow \Delta$ also with a proof tree of a rank less than $\rho(A)$ (for $S \subseteq \{ L, R \}$).
+
+\emph{Proof.} We have two low-rank proof-trees, $\mathcal{D}_0$ and $\mathcal{D}_1$.
+\[
+  \genfrac{}{}{0pt}{}{\mathcal{D}_0}{\Gamma \Rightarrow A}
+  \hspace{3em}
+  \genfrac{}{}{0pt}{}{\mathcal{D}_1}{\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta}
+\]
+We will construct a low-rank proof-tree, $\mathcal{D}$.
+\[\genfrac{}{}{0pt}{}{\mathcal{D}}{\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow \Delta} \]
+
+Use mutual induction on the construction of $\gstl_1$ proofs of $\Gamma \Rightarrow A$ and $\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$. All propositional cases are handled as was shown before.
+
+$\bullet$ Let $\mathcal{D}_0$ end with $L \forall$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma, \nabla^r B[t/x] \Rightarrow A$}
+  \RightLabel{$L \forall$}
+  \UIC{$\Gamma, \nabla^{r+1} \forall x B \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1$} \noLine
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$}
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows.
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma, \nabla^r B[t/x] \Rightarrow A$}
+  \AXC{$\mathcal{D}_1$} \noLine
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$}
+  \RightLabel{$IH(\mathcal{D}_0', \mathcal{D}_1)$}
+  \BIC{$\{\nabla^{n_i} \Gamma , \nabla^{n_i + r} B[t/x]\}_{i \leq l} ,  , \Sigma \Rightarrow \Delta$}
+  \RightLabel{$L \forall$} \doubleLine
+  \UIC{$\{\nabla^{n_i} \Gamma , \nabla^{n_i + r + 1} B\}_{i \leq l} ,  , \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_0$ end with $L \exists$. (So $y$ does not occur free in its conclusion.)
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma, \nabla^r B[y/x] \Rightarrow A$}
+  \RightLabel{$L \exists$}
+  \UIC{$\Gamma, \nabla^r \exists x B \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1$} \noLine
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$}
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows. Notice that $IH(\mathcal{D}_0', \mathcal{D}_1)$ does not introduce $y$.
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma, \nabla^r B[y/x] \Rightarrow A$}
+  \AXC{$\mathcal{D}_1$} \noLine
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \Delta$}
+  \RightLabel{$IH(\mathcal{D}_0', \mathcal{D}_1)$}
+  \BIC{$\{\nabla^{n_i} \Gamma , \nabla^{n_i + r} B[t/x]\}_{i \leq l} , \Sigma \Rightarrow \Delta$}
+  \RightLabel{$L \exists$} \doubleLine
+  \UIC{$\{\nabla^{n_i} \Gamma , \nabla^{n_i + r} B\}_{i \leq l} , \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_1$ end with $R \forall$. (So $y$ does not occur free in its conclusion.)
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\nabla \Sigma , \{\nabla^{n_i+1} A\}_{i \leq l} \Rightarrow B[y/x]$}
+  \RightLabel{$L \forall$}
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \forall x B$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows. Notice that $IH(\mathcal{D}_0, \mathcal{D}_1')$ does not introduce $y$.
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\nabla \Sigma , \{\nabla^{n_i+1} A\}_{i \leq l} \Rightarrow B[y/x]$}
+  \RightLabel{$IH(\mathcal{D}_0, \mathcal{D}_1')$}
+  \BIC{$\{\nabla^{n_i+1} \Gamma\}_{i \leq l} , \nabla \Sigma \Rightarrow B[y/x]$}
+  \RightLabel{$R \forall$}
+  \UIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow \forall x B$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_1$ end with $R \exists$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow B[t/x]$}
+  \RightLabel{$R \exists$}
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow \exists x B$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma , \{\nabla^{n_i} A\}_{i \leq l} \Rightarrow B[t/x]$}
+  \RightLabel{$IH(\mathcal{D}_0, \mathcal{D}_1')$}
+  \BIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow B[t/x]$}
+  \RightLabel{$R \forall$}
+  \UIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l} , \Sigma \Rightarrow \exists x B$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_1$ end with $L \forall$, but the principal formula is not in the cut-burden.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$L \forall$}
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^{r+1} \forall x B \Rightarrow \Delta$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows.
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$IH(\mathcal{D}_0, \mathcal{D}_1')$}
+  \BIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l}, \Sigma, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$L \forall$}
+  \UIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l}, \Sigma, \nabla^{r+1} \forall x B \Rightarrow \Delta$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_1$ end with $L \exists$, but the principal formula is not in the cut-burden.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$L \exists$}
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^r \exists x B \Rightarrow \Delta$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows.
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0$} \noLine
+  \UIC{$\Gamma \Rightarrow A$}
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A\}_{i \leq l}, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$IH(\mathcal{D}_0, \mathcal{D}_1')$}
+  \BIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l}, \Sigma, \nabla^r B[t/x] \Rightarrow \Delta$}
+  \RightLabel{$L \exists$}
+  \UIC{$\{\nabla^{n_i} \Gamma\}_{i \leq l}, \Sigma, \nabla^r \exists x B \Rightarrow \Delta$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_0$ end with $R \forall$ and none of the other cases hold; The cut-formula would be of the form $\forall x A$. This implies that a member of the cut-burden should also be principal in the last rule of $\mathcal{D}_1$, and this rule must be either $N$---which is handeld in propositional cases---or $L \forall$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\nabla \Gamma \Rightarrow A[y/x]$}
+  \RightLabel{$R \forall$}
+  \UIC{$\Gamma \Rightarrow \forall x A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A[t/x]\}_{i \leq l} \Rightarrow \Delta$}
+  \RightLabel{$L \forall$}
+  \UIC{$\Sigma, \{\nabla^{n_i+1} \forall x A\}_{i \leq l} \Rightarrow \Delta$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows. Notice that $y$ does not occur free in the conclusion of $\mathcal{D}_0$, so $\mathcal{D}_0'[t/y]$ proves $\nabla \Gamma [t/y] \Rightarrow A[y/x][t/y]$, which is equal to $\nabla \Gamma \Rightarrow A[t/x]$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\nabla \Gamma \Rightarrow A$} \RightLabel{$[t/y]$}
+  \UIC{$\nabla \Gamma \Rightarrow A[t/x]$}
+
+  
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A[t/x]\}_{i \leq l} \Rightarrow \Delta$}
+
+  \BIC{$\{ \nabla^{n_i+1} \Gamma \}_{i \leq l}, \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+
+
+$\bullet$ Let $\mathcal{D}_0$ end with $R \exists$ and none of the other cases hold; The cut-formula would be of the form $\exists x A$. This implies that a member of the cut-burden should also be principal in the last rule of $\mathcal{D}_1$, and this rule must be either $N$---which is handeld in propositional cases---or $L \exists$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma \Rightarrow A[t/x]$}
+  \RightLabel{$R \exists$}
+  \UIC{$\Gamma \Rightarrow \exists x A$}
+
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A[y/x]\}_{i \leq l} \Rightarrow \Delta$}
+  \RightLabel{$L \exists$}
+  \UIC{$\Sigma, \{\nabla^{n_i} \exists x A\}_{i \leq l} \Rightarrow \Delta$}
+
+  \noLine
+  \BIC{}
+\end{prooftree}
+
+Construct $\mathcal{D}$ as follows. Notice that $y$ does not occur free in the conclusion of $\mathcal{D}_1$, so $\mathcal{D}_1'[t/y]$ proves $\Sigma[t/y], \{\nabla^{n_i} A[y/x][t/y]\}_{i \leq l} \Rightarrow \Delta[t/y]$, which is equal to $\Sigma, \{\nabla^{n_i} A[t/x]\}_{i \leq l} \Rightarrow \Delta$.
+
+\begin{prooftree}
+  \AXC{$\mathcal{D}_0'$} \noLine
+  \UIC{$\Gamma \Rightarrow A[t/x]$}
+
+  
+  \AXC{$\mathcal{D}_1'$} \noLine
+  \UIC{$\Sigma, \{\nabla^{n_i} A[y/x]\}_{i \leq l} \Rightarrow \Delta$} \RightLabel{$[t/y]$}
+  \UIC{$\Sigma, \{\nabla^{n_i} A[t/x]\}_{i \leq l} \Rightarrow \Delta$}
+
+  \BIC{$\{ \nabla^{n_i} \Gamma \}_{i \leq l}, \Sigma \Rightarrow \Delta$}
+\end{prooftree}
+\end{document}
