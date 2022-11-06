@@ -1,0 +1,441 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+	v 1 \\
+{\large\textbf{A Tableau System for STL}}
+}
+\\
+\setcounter{section}{-1}
+\section{Notation} In the following $\Gamma$, $\Sigma$, $\Pi$ and $\Delta$ are names for finite multi-sets of formulas, $\delta$ for a sub-singleton of some formula, $A$, $B$ and $C$ for formulas, $p$ for propositional variables and $n$, $l$, $r$ and $k$ for natural numbers. We denote by $P$ the set of all propositional variables, and by $P(A)$ the set of those that occur in the formula $A$.
+
+We will write $A$ for the singleton $\{A\}$ where ever it is inferable from the context.
+``$,$'' is the multi-set union.
+We will also write $A^1$ for $\{A\}$, write $A^{n+1}$ for $A^n, A$, write $\Gamma^n$ for $\{ A^n : A \in \Gamma \}$ and write $P(\Gamma)$ for $\bigcup_{A \in \Gamma} P(A)$
+
+A sequent $\Gamma \Rightarrow \Delta$ is a binary relation between $\Gamma$, a multi-set of formulas, and $\Delta$, a sub-singleton of some formula.
+
+If $A$ is a formula, then $T A$ and $F A$ are signed formulas. In this document, $\Psi$ and $\Phi$ are names for finite sets of signed formulas. We also occasionally use the name $X$ for the letters $T$ and $F$. Also notice that wherever we use the set-comprehension notation for formulas, we are constructing a multiset, and wherever we use that notation for signed formulas, it is a set. We will also use the following short-hands, where $\Gamma$ is a multiset of formulas and $\Phi$ is a set of signed formulas and $X$ is either $T$ or $F$.
+
+$\nabla \Gamma = \{ \nabla A \mid A \in \Gamma \}$
+
+$X \Gamma = \{ X A \mid A \in \Gamma \}$
+
+$\Phi_X = \{ X A \mid X A \in \Phi \}$
+
+$X_\Phi = \{ A \mid X A \in \Phi \}$
+
+$\nabla \Phi_X = \{ X \nabla A \mid X A \in \Phi \}$
+
+
+
+\section{Asymmetric system for STL} \quad \\
+
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Id$}
+     \UIC{$ A \Rightarrow A$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ta$}
+     \UIC{$ \Rightarrow \top$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ex$}
+     \UIC{$ \bot \Rightarrow $}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, A \Rightarrow \delta$}
+     \RightLabel{$L \wedge_1$}
+     \UIC{$ \Gamma, A \wedge B \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$ \Gamma, B \Rightarrow \delta$}
+     \RightLabel{$L \wedge_2$}
+     \UIC{$\Gamma, A \wedge B \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \AXC{$\Gamma \Rightarrow B$}
+     \RightLabel{$R \wedge$}
+     \BIC{$ \Gamma \Rightarrow A \wedge B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, A \Rightarrow \delta$}
+     \AXC{$\Gamma, B \Rightarrow \delta$}
+     \RightLabel{$L \vee$}
+     \BIC{$ \Gamma, A \vee B \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \RightLabel{$R \vee_1$}
+     \UIC{$\Gamma \Rightarrow A \vee B$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow B$}
+     \RightLabel{$R \vee_2$}
+     \UIC{$\Gamma \Rightarrow A \vee B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+  \begin{multicols}{2}
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \AXC{$\Gamma, B \Rightarrow \delta$}
+     \RightLabel{$L \rightarrow$}
+     \BIC{$\Gamma, \nabla (A \rightarrow B) \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\nabla \Gamma, A \Rightarrow B$}
+     \RightLabel{$R \rightarrow$}
+     \UIC{$\Gamma \Rightarrow A \rightarrow B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \delta$}
+    \RightLabel{$L w$}
+    \UIC{$ \Gamma, A \Rightarrow \delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow$}
+    \RightLabel{$R w$}
+     \UIC{$\Gamma \Rightarrow A$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{1}
+  \begin{prooftree}
+    \AXC{$ \Gamma, A, A \Rightarrow \delta$}
+    \RightLabel{$Lc$}
+    \UIC{$\Gamma, A \Rightarrow \delta$}		
+  \end{prooftree}
+\end{multicols}
+
+ \begin{prooftree}
+   \AXC{$\Gamma \Rightarrow \delta$}
+   \RightLabel{$N$}
+   \UIC{$\nabla \Gamma \Rightarrow \nabla \delta$}
+ \end{prooftree}
+
+ \begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A$}
+    \AXC{$\Sigma, A \Rightarrow \delta$}
+    \RightLabel{$cut$}
+    \BIC{$\Gamma, \Sigma \Rightarrow \delta$}
+  \end{prooftree}
+\end{center}
+
+By $\stl \vdash \Gamma \Rightarrow \delta$ we mean that the sequent $\Gamma \Rightarrow \delta$ provable in this system.
+\pagebreak
+
+\section{Symmetric system for STL} \quad \\
+
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Id$}
+     \UIC{$ A \Rightarrow A$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ta$}
+     \UIC{$ \Rightarrow \top$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ex$}
+     \UIC{$ \bot \Rightarrow $}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, A \Rightarrow \Delta$}
+     \RightLabel{$L \wedge_1$}
+     \UIC{$ \Gamma, A \wedge B \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$ \Gamma, B \Rightarrow \Delta$}
+     \RightLabel{$L \wedge_2$}
+     \UIC{$\Gamma, A \wedge B \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A, \Delta$}
+     \AXC{$\Gamma \Rightarrow B, \Delta$}
+     \RightLabel{$R \wedge$}
+     \BIC{$ \Gamma \Rightarrow A \wedge B, \Delta$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, A \Rightarrow \Delta$}
+     \AXC{$\Gamma, B \Rightarrow \Delta$}
+     \RightLabel{$L \vee$}
+     \BIC{$ \Gamma, A \vee B \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A, \Delta$}
+     \RightLabel{$R \vee_1$}
+     \UIC{$\Gamma \Rightarrow A \vee B, \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow B, \Delta$}
+     \RightLabel{$R \vee_2$}
+     \UIC{$\Gamma \Rightarrow A \vee B, \Delta$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+  \begin{multicols}{2}
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \AXC{$\Gamma, B \Rightarrow \Delta$}
+     \RightLabel{$L \rightarrow$}
+     \BIC{$\Gamma, \nabla (A \rightarrow B) \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\nabla \Gamma, A \Rightarrow B$}
+     \RightLabel{$R \rightarrow$}
+     \UIC{$\Gamma \Rightarrow A \rightarrow B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \Delta$}
+    \RightLabel{$L w$}
+    \UIC{$ \Gamma, A \Rightarrow \Delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \Delta$}
+    \RightLabel{$R w$}
+     \UIC{$\Gamma \Rightarrow A, \Delta$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma, A, A \Rightarrow \Delta$}
+    \RightLabel{$Lc$}
+    \UIC{$\Gamma, A \Rightarrow \Delta$}		
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A, A, \Delta$}
+    \RightLabel{$Rc$}
+    \UIC{$\Gamma \Rightarrow A, \Delta$}		
+  \end{prooftree}
+\end{multicols}
+
+ \begin{prooftree}
+   \AXC{$\Gamma \Rightarrow \Delta$}
+   \RightLabel{$N$}
+   \UIC{$\nabla \Gamma \Rightarrow \nabla \Delta$}
+ \end{prooftree}
+
+ \begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A, \Pi$}
+    \AXC{$\Sigma, A \Rightarrow \Delta$}
+    \RightLabel{$cut$}
+    \BIC{$\Gamma, \Sigma \Rightarrow \Pi, \Delta$}
+  \end{prooftree}
+\end{center}
+
+
+By $\sstl \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in this system.
+
+\section{Theorem} \textit{Symmetric and asymmetric systems are equivalent:} 
+
+\quad $\sstl \vdash \Gamma \Rightarrow \Delta$ \quad iff \quad $\stl \vdash \Gamma \Rightarrow \bigvee \Delta$.
+
+(Take $\bigvee \{\} = \{\}$, or rewrite the whole thing.)
+
+\emph{Proof.} ($\Rightarrow$) By induction on the $\sstl$ proof tree for $\Gamma \Rightarrow \Delta$, for any shorter $\sstl$ proof of $\Gamma' \Rightarrow \Delta'$ we have a $\stl$ proof of $\Gamma \Rightarrow \bigvee \Delta$ from the induction hypothesis.
+
+\begin{enumerate}
+  \item[Axioms] are trivial.
+  \item[$R \vee_1$] We have a $\sstl$ proof tree for $\Gamma \Rightarrow A \vee B, \Delta$ and a shorter one for $\Gamma \Rightarrow A, \Delta$. The induction hypothesis with $\Delta' = A, \Delta$ gives us a proof tree for $\Gamma \Rightarrow A \vee \bigvee \Delta$. Apply $R \vee_1$ in $\sstl$ then use $cut$ into the commutativity and associativity of $\vee$ to get $\Gamma \Rightarrow (A \vee B) \vee \bigvee \Delta$.
+  \item[$R \vee_2$] Similar to the previous case, and this time we won't need commutativity.
+  \item[$R \wedge$] IH twice with $\Delta' = A, \Delta$ and $\Delta' = B, \Delta$. Apply $R \wedge$ in $\stl$ to get $\Gamma \Rightarrow (A \vee \bigvee \Delta) \wedge (B \vee \bigvee \Delta)$, then $cut$ into the distributivity of $\vee$ over $\wedge$ to get $\Gamma \Rightarrow (A \wedge B) \vee \bigvee \Delta$.
+  \item[$R \rightarrow$] IH with $\Delta' = B$, then apply $R \rightarrow$ in $\stl$.
+  \item[$R w$] IH with $\Delta' = \Delta$, which gives us a proof for $\Gamma \Rightarrow \bigvee \Delta$ in $\stl$, then apply $R \vee$ to get $\Gamma \Rightarrow A \vee \bigvee \Delta$.
+  \item[$R c$] IH with $\Delta' = A, A, \Delta$, which gives a proof for $\Gamma \Rightarrow A \vee A \vee \bigvee \Delta$, then $cut$ into $A \vee A \vee \bigvee \Delta \Rightarrow A \vee \bigvee \Delta$.
+  \item[$N$] IH with $\Delta' = \Delta$, which gives a prof for $\Gamma \Rightarrow \bigvee \Delta$. Apply $N$ to get $\nabla \Gamma \Rightarrow \nabla \bigvee \Delta$, then $cut$ into the distributivity of $\nabla$ over $\vee$.
+  \item[$L \star$] ($\star \in \{ \wedge_1, \wedge_2, \vee, \rightarrow, w, c \}$) IH with $\Delta' = \Delta$ (except for $L \rightarrow$, where we would take $\Delta' = A$ for one of the subtrees), then apply $L \rightarrow$ in $\stl$.
+  \item[$cut$] IH twice with $\Delta' = A, \Pi$ and $\Delta' = \Delta$ which gives us two proofs for $\Gamma \Rightarrow A \vee \bigvee \Pi$ and $\Sigma, A \Rightarrow \bigvee \Delta$. Deduce $\Sigma, A \vee \bigvee \Pi \Rightarrow \bigvee \bigvee \Pi \vee \Delta$ from the latter sequent, the $cut$ it with the first one to get $\Gamma, \Sigma \Rightarrow \bigvee \bigvee \Pi \vee \Delta$.
+\end{enumerate}
+
+($\Leftarrow$) By induction on the $\stl$ proof tree for $\Gamma \Rightarrow \bigvee \Delta$, for any shorter $\stl$ proof of $\Gamma' \Rightarrow \bigvee \Delta'$ we have a $\sstl$ proof of $\Gamma \Rightarrow \Delta$ from the induction hypothesis. Notice that the in all cases we can only take $\Delta$ to be a singleton ($\bigvee \{ A \} = A$) except in $R \vee_1$ and $R \vee_2$.
+
+\begin{enumerate}
+  \item[Axioms] are trivial.
+  \item[$R \vee_1$] We have a $\stl$ proof tree for $\Gamma \Rightarrow A \vee B$ and a shorter one for $\Gamma \Rightarrow A$. Take $\Delta' = A$ and use induction hypothesis to get a $\sstl$ proof of $\Gamma \Rightarrow A$. Now we have two subcases: If we take $\Delta = \{ A \vee B \}$, then we can apply $R \vee_1$ in $\sstl$ to get $\Gamma \Rightarrow A \vee B$. If we take $\Delta = \{ A, B \}$, then by $R w$ in $\sstl$ we would get $\Gamma \Rightarrow A, B$.
+  \item[$R \vee_2$] Similar to the previous case.
+  \item[$R \wedge$] IH twice with $\Delta' = A$ and $\Delta' = B$, then apply $R \wedge$ in $\sstl$.
+  \item[$R \rightarrow$] IH with $\Delta' = B$, then apply $R \rightarrow$ in $\sstl$. Notice that this rule is single succedent.
+  \item[$R w$] IH with $\Delta' = \{\}$ and then apply $\sstl$'s $R w$.
+  \item[$N$] IH with $\Delta' = \delta$ and then apply $\sstl$'s $N$.
+  \item[$L \star$] ($\star \in \{ \wedge_1, \wedge_2, \vee, \rightarrow, w, c \}$) IH with $\Delta' = \delta$ (except for $R \rightarrow$ where we use IH once with $\Delta' = A$), then apply $R \star$ in $\sstl$.
+  \item[$cut$] IH twice with $\Delta' = A$ and $\Delta' = \delta$, then apply $cut$ in $\sstl$.
+\end{enumerate}
+\begin{flushright}$\Box$\end{flushright}
+
+\section{Tableau system for STL} A \emph{tableau} for $\stl$ is a tree structure with following cnostructors. Remember that $\Phi$ and $\Psi$ are sets of \emph{signed} formulas, i.e., formulas with a prefix $T$ or $F$. We will use the same comma notation for set union and singleton as we used for multisets.
+(Tableaux here are drawn upside down, due to technical problems.)
+
+\begin{multicols}{3}
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$Cl$}
+    \UIC{$\Phi, T A, F A$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$FT$}
+    \UIC{$\Phi, F \top$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$TF$}
+    \UIC{$\Phi, T \bot$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi, F A$}
+    \AXC{$\Phi, F B$}
+    \RightLabel{$F \wedge$}
+    \BIC{$\Phi, F A \wedge B$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Phi, T A, T B$}
+    \RightLabel{$T \wedge$}
+    \UIC{$\Phi, T A \wedge B$}
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi, T A$}
+    \AXC{$\Phi, T B$}
+    \RightLabel{$T \vee$}
+    \BIC{$\Phi, T A \vee B$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Phi, F A, F B$}
+    \RightLabel{$F \vee$}
+    \UIC{$\Phi, F A \vee B$}
+  \end{prooftree}
+\end{multicols}
+
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi_T, F A$}
+    \AXC{$\Phi, T B$}
+    \RightLabel{$T \rightarrow$}
+    \BIC{$\Phi, T \nabla (A \rightarrow B)$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\nabla \Phi_T, T A, F B$}
+    \RightLabel{$F \rightarrow$}
+    \UIC{$\Phi, F A \rightarrow B$}
+  \end{prooftree}
+\end{multicols}
+
+
+ \begin{prooftree}
+   \AXC{$\Phi$}
+   \RightLabel{$Th$}
+   \UIC{$\Phi, \Psi$}
+ \end{prooftree}
+ 
+ \begin{prooftree}
+   \AXC{$\Phi$}
+   \RightLabel{$N$}
+    \UIC{$\nabla \Phi$}
+ \end{prooftree}
+
+\begin{center}
+ \begin{prooftree}
+   \AXC{$\Phi, T A$}
+   \AXC{$\Psi, F A$}
+   \RightLabel{$cut$}
+   \BIC{$\Phi, \Psi$}
+ \end{prooftree}
+\end{center}
+
+A branch of a tableau which ends with either $Cl$, $FT$ or $TF$ is a \emph{closed branch}, otherwise it is \emph{open}. A tableau with no open branch is a \emph{closed tableau}.
+
+\section{Theorem} $\stl \vdash \Gamma \Rightarrow \Delta$ \textit{iff there exists a closed tableau for} $T \Gamma, F \Delta$.
+
+\emph{Proof.} ($\Rightarrow$) By induction on the $\stl$ proof of $\Gamma \Rightarrow \Delta$, for any shorter proof of $\Gamma' \Rightarrow \Delta'$ we would have a closed tableau for $T \Gamma, F \Delta$ from the inducion hypothersis.
+
+\begin{enumerate}
+  \item[$R \wedge$] We have a $\stl$ proof of $\Gamma \Rightarrow A \wedge B, \Delta$ and a two shorter ones for $\Gamma \Rightarrow A, \Delta$ and $\Gamma \Rightarrow B, \Delta$. The induction hypothesis gives us two closed tableaux for $T \Gamma, F A, F \Delta$ and $T \Gamma, F B, F \Delta$. We can construct a closed tableau for $T \Gamma, F A \wedge B, F \Delta$ using $F \wedge$.
+  \item[$R \vee_1$] From IH we have a closed tableau for $T \Gamma, F A, F \Delta$. Use $Th$ to get a closed tableau for $T \Gamma, F A, F B, F \Delta$, then $F \vee$ to get $T \Gamma, F A \vee B, F \Delta$.
+  \item[$R \vee_2$] Similar.
+  \item[$R \rightarrow$] IH gives us a closed tableau for $T \nabla \Gamma, T A, F B$. Construct a closed tableau for $T \Gamma, F A \rightarrow B$ using $F \rightarrow$ with $\Phi = \Phi_T = T \Gamma$
+  \item[$R w$] IH gives us a closed tableau for $T \Gamma, F \Delta$. Construct a closed tableau for $T \Gamma, T A, F \Delta$ using $Th$.
+  \item[$R c$] The closed tableau that we would get from IH should be enough, since $T \Gamma, F A, F A, F \Delta = T \Gamma, F A, F \Delta$.
+  \item[$L \wedge_1$] IH gives us a closed tableau for $T \Gamma, T A, F \Delta$. Use $Th$ to get a closed tableau for $T \Gamma, T A, T B, F \Delta$, then use $T \wedge$ to get a closed tableau for $T \Gamma, T A \wedge B, F \Delta$.
+  \item[$L \wedge_2$] Similar.
+  \item[$L \vee$] IH gives us two closed tableaux for $T \Gamma, T A, F \Delta$ and $T \Gamma, T B, F \Delta$. Use $T \vee$ to construct a closed tableau for $T \Gamma, T A \vee B, F \Delta$.
+  \item[$L \rightarrow$] IH gives us two closed tableaux for $T \Gamma, F A$ and $T \Gamma, T B, F \Delta$. Use $T \rightarrow$ with $\Phi = T \Gamma, F \Delta$ to construct a closed tableau for $T \Gamma, T \nabla (A \rightarrow B), F \Delta$.
+  \item[$L w$] Similar to the case for $R w$.
+  \item[$L c$] Similar to the case for $R c$.
+  \item[$N$] IH gives us a closed tableau for $T \Gamma, F \Delta$ which turns to closed tableau for $T \nabla \Gamma, F \nabla \Delta$.
+  \item[$cut$] IH gives us two closed tableaux for $T \Gamma, F A, F \Pi$ and $T \Sigma, T A, F \Delta$. Use $cut$ to get a closed tableau for $T \Gamma, F \Pi, T \Sigma, F \Delta$.
+\end{enumerate}
+
+($\Leftarrow$) Suppose there exists a closed tableau for $T \Gamma, F \Delta$. Proceed by induction on the construction of this tableau.
+
+\begin{enumerate}
+  \item[$T \wedge$] There is a closed tableau for $\Phi, T A, T B$ and a shorter one for $\Phi, T A \wedge B$. By induction hypothesis we have a $\sstl$ proof tree for $T_\Phi, A, B \Rightarrow F_\Phi$. Apply $L \wedge_1$, $L \wedge_2$ and then $L c$ to get $T_\Phi, A \wedge B \Rightarrow F_\Phi$.
+  \item[$T \vee$] We have two closed tableaux for $\Phi, T A$ and $\Phi, T B$. IH gives us two proof trees for $T_\Phi, A \Rightarrow F_\Phi$ and $T_\Phi, B \Rightarrow F_\Phi$. Apply $L \vee$ to get $T_\Phi, A \vee B \Rightarrow F_\Phi$.
+  \item[$T \rightarrow$] We have two closed tableaux for $\Phi_T, F A$ and $\Phi, T B$. IH gives us two proof trees for $T_\Phi \Rightarrow A$ and $T_\Phi, B \Rightarrow F_\Phi$. Apply $L \rightarrow$ to get $T_\Phi, \nabla (A \rightarrow B) \Rightarrow F_\Phi$.
+  \item[$F \wedge$] There exists two closed tableaux for $\Phi, F A$ and $\Phi, F B$, for which IH gives two proof trees for $T_\Phi \Rightarrow A, F_\Phi$ and $T_\Phi \Rightarrow B, F_\Phi$. Apply $R \wedge$ to get $T_\Phi \Rightarrow A \wedge B, F_\Phi$.
+  \item[$F \vee$] IH gives a proof for $T_\Phi \Rightarrow A, B, F_\Phi$. Apply $R \vee_1$, $R \vee_2$ and then $R c$.
+  \item[$F \rightarrow$] There is a proof tree for $\nabla T_\Phi, A \Rightarrow B$ from IH. By $R \rightarrow$ we would have $T_\Phi \Rightarrow A \rightarrow B$. Now, using $R w$, we can add $F_\Phi$ to the right of the sequent.
+  \item[$N$] We have a closed tableau for $\nabla \Phi$ and a shorter one for $\Phi$. IH gives us a proof tree for $T_\Phi \Rightarrow F_\Phi$. Apply $N$ in $\sstl$ to get $\nabla T_\Phi \Rightarrow \nabla F_\Phi$.
+  \item[$Th$] IH, $L w$ and $R w$.
+  \item[$cut$] IH two times, and then $cut$ in $\sstl$.
+\end{enumerate}
+\begin{flushright}$\Box$\end{flushright}
+
+\end{document}
