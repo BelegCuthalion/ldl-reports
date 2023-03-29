@@ -1,0 +1,3 @@
+Suppose $\D$ is a proof-tree for $\Gamma , \nabla^n \top \Rightarrow \Delta$ in $\gstt$ and consider different cases for $R$, the last rule in $\D$.
+By induction on $\D$ we can assume that the theorem holds for its subtrees.
+First, observe that the cases where $R$ is an axiom are trivial. In all other cases, just apply induction hypothesis on the subtrees of $\D$, and then apply $R$. Notice that $\nabla cut$ is not used except in the case where $R$ is $\nabla cut$ itself, where it is applied with a cut-formula of the same rank. So the resulting proof-tree will not have a higher rank than $\D$.

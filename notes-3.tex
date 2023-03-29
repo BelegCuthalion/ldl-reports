@@ -1,0 +1,336 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+	v 1.1 \\
+  \\
+{\Huge\textbf{A Contraction-free System for STL}}
+}
+\\
+\part*{Definitions}
+\setcounter{section}{-1}
+\section{Notation} In the following, a formula is a free construction of operators $\bot$, $\top$, $\nabla$, $\vee$, $\wedge$ and $\rightarrow$, which have arities $0$, $0$, $1$, $2$, $2$ and $2$, respectively, over a countable set of atoms. $\Gamma$, $\Sigma$ and $\Pi$ are names for finite multi-sets of formulas, $\Delta$ for a sub-singleton of some formula, $A$, $B$ and $C$ for formulas, $p$ for atoms and $n$, $l$, $r$ and $k$ for natural numbers. We denote by $P$ the set of all atoms, and by $P(A)$ the set of those that occur in the formula $A$.
+
+We will write $A$ for the singleton $\{A\}$ where ever it is inferable from the context.
+``$,$'' is the multi-set union. We will also use the following short-hands.
+\begin{flushleft}
+  $ A^1 = \{ A \} $ \\
+  $ A^{n+1} = A^n, A $ \\
+  $ \Gamma^1 = \Gamma $ \\
+  $ \Gamma^{n+1} = \Gamma^n, \Gamma $ \\
+  $ \nabla^1 A = \nabla A $ \\
+  $ \nabla^{n+1} A = \nabla (\nabla^n A) $ \\
+  $ \nabla^n \Gamma = \{ \nabla^n A \mid A \in \Gamma \} $ \\
+  $ P(\Gamma) = \bigcup_{A \in \Gamma} P(A) $
+\end{flushleft}
+
+
+A sequent $\Gamma \Rightarrow \Delta$ is a binary relation between $\Gamma$, a multi-set of formulas called \emph{the antecedent} or \emph{the left-side}, and $\Delta$, a sub-singleton of some formula called \emph{the succedent} or \emph{the right-side}.
+
+
+We will construct trees, called \emph{proof-trees}, using a set of recursive rules, called a \emph{deductive system}, or simply \emph{system}.
+
+A rule $R$ is expressed as a relation between a set of $n$ sequents $\{ \Gamma_i \Rightarrow \Delta_i \mid 1 \leq i \leq n \}$ called \emph{premises} and a sequent $\Gamma \Rightarrow \Delta$ called \emph{conclusion}, and is written as follows.
+\begin{prooftree}
+  \AXC{$\Gamma_1 \Rightarrow \Delta_1$}
+  \AXC{$\dots$}
+  \AXC{$\Gamma_n \Rightarrow \Delta_n$}
+  \RightLabel{$R$}
+  \TIC{$\Gamma \Rightarrow \Delta$}
+\end{prooftree}
+
+We will designate a specific formula in the conclusion of some rules, called \emph{the principal formula} of that rule, which will be indicated by writing it \uwave{underlined}.
+
+A proof-tree in a system is made up of instances of rules of that system. So in a system with the rule $R$, we can construct a proof-tree with root $\Gamma \Rightarrow \Delta$, if we have already constructed $n$ proof-trees with roots $\Gamma_i \Rightarrow \Delta_i$ for all $1 \leq i \leq n$.
+
+
+
+When a proof-tree, with $\Gamma \Rightarrow \Delta$ as root, is constructed using a system $S$, we say that $S$ proves $\Gamma \Rightarrow \Delta$, and write it as $S \vdash \Gamma \Rightarrow \Delta$.
+
+
+
+We will name proof-trees by $\D$, $\D'$ and so on, unless otherwise stated. We will name subtrees of $\D$ by $\D_0$, $\D_1$ and so on. We will frequently use induction to prove existence of some proof-tree, assuming existence of some other proof-tree $\D$. In such situations we will use notation $IH(\D)$ to denote the proof-tree that we will get from induction hypothesis.
+
+We will write $S \vdash_h \Gamma \Rightarrow \Delta$ to indicate the existence of a proof-tree of height $h$ for $\Gamma \Rightarrow \Delta$ in system $S$. We will also write $h(\D)$ for the height of a proof-tree $\D$.
+
+We write $S \vdash^r A$ when we want to indicate that a system $S$ proves a formula $A$, with a proof-tree of rank $r$ (defined below).
+
+
+\section{cut} \quad \\
+
+\begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A$}
+    \AXC{$\Sigma, A \Rightarrow \Delta$}
+    \RightLabel{$cut$}
+    \BIC{$\Gamma, \Sigma \Rightarrow \Delta$}
+  \end{prooftree}
+\end{center}
+
+\begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A$}
+    \AXC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+    \RightLabel{$\nabla cut$}
+    \BIC{$\nabla^n \Gamma, \Sigma \Rightarrow \Delta$}
+  \end{prooftree}
+\end{center}
+
+Notice that $\nabla cut$ generalizes $cut$.
+
+$A$ is called \emph{the cut-formula} of a $cut$ or $\nabla cut$ instance.
+
+\emph{Rank} of a formula $A$ is defined as
+\[ \rho(A) = \begin{cases}
+1 & \quad ; A \in P \cup \{ \bot, \top \} \\
+\rho(B) & \quad ; A = \nabla B \\
+max(\rho(B), \rho(C)) + 1 & \quad ; A = B \circ C \quad (\circ \in \{ \land, \lor, \rightarrow \})
+\end{cases} \]
+Notice that $\nabla$ does not increase the rank of a formula.
+
+We also define rank for rule instances and proof-trees as follows. Rank of an instance of the $\nabla cut$ rule with cut-formula $A$ is defined to be the rank of $A$. Rank of any other rule instance is $0$.
+Rank of a proof-tree $\D$, written as $\rho(\D)$, is the maximum rank of all of its rule instances.
+
+
+\section{ST} \quad \\
+
+\input{dfn/st}
+
+By $\st \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in this system.
+
+By $\st^+ \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in the above system, augmented with the $cut$ rule. 
+We denote the \emph{spacetime logic} by $\stl$, which is the set of all sequents provable in $\st^+$.
+
+
+
+\section{ST3} \quad \\
+
+\input{dfn/stt}
+
+
+Notice that there could be more than one principal-formula in $Lw$.
+
+By $\stt \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in this system.
+
+By $\stt^+ \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in the above system, augmented with the $cut$ rule.
+
+
+
+\section{GST3} \quad \\
+
+\input{dfn/gstt}
+
+Notice that all $\gstt$ rules generalize $\stt$ rules.
+
+Also notice that there could be more than one principal-formula in $Lw$.
+
+By $\gstt \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in this system.
+
+By $\gstt^+ \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in the above system, augmented with the $\nabla cut$ rule.
+
+We denote the logic of $\gstt$, which is the set of all sequents provable in $\gstt$, by $\gsttl$.
+
+
+\section{Conventions} We will refer to $Id$, $L \bot$, $R \top$ as \emph{axioms}, $L \wedge$, $L \wedge_1$, $L \wedge_2$, $L \vee$, $R \vee_1$, $R \vee_2$, $L \rightarrow$, $R \rightarrow$ as \emph{logical rules}, $Lw$, $Rw$ and $Lc$ as \emph{structural rules} and $N$ as \emph{the modal rule}.
+
+
+\pagebreak
+
+\part*{Theorems}
+\setcounter{section}{0}
+
+
+\section{Theorem}\label{thm:stt-id-form} $(Id)$ $\stt \vdash \Gamma, A \Rightarrow A$. \hyperref[pr:stt-id-form]{\emph{Proof.}}
+
+
+\section{Lemma}\label{lem:stt-inversion}
+\begin{enumerate}
+  \item If $\stt \vdash_h \Gamma, \nabla^n (A \wedge B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n A, \nabla^n B \Rightarrow \Delta$.
+  \item If $\stt \vdash_h \Gamma, \nabla^n (A \vee B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n A \Rightarrow \Delta$ and $\stt \vdash_h \Gamma, \nabla^n B \Rightarrow \Delta$.
+  \item If $\stt \vdash_h \Gamma, \nabla^n B, \nabla^{n+1} (A \rightarrow B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n B^2 \Rightarrow \Delta$.
+  \item If $\stt \vdash_h \Gamma \Rightarrow A \wedge B$ then $\stt \vdash_h \Gamma \Rightarrow A$ and $\stt \vdash_h \Gamma \Rightarrow B$.
+\end{enumerate}
+\hyperref[pr:stt-inversion]{\emph{Proof.}}
+
+
+\section{Theorem}\label{thm:stt-lc-elim} $(Lc)$ If $\stt \vdash_h \Gamma, A^n \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, A \Rightarrow \Delta$.
+\hyperref[pr:stt-lc-elim]{\emph{Proof.}}
+
+
+
+\section{Theorem}\label{thm:stt-eq-st} $\stt \vdash \Gamma \Rightarrow \Delta$ iff $\st \vdash \Gamma \Rightarrow \Delta$.
+\hyperref[pr:stt-eq-st]{\emph{Proof.}}
+
+
+
+\section{Theorem}\label{thm:sttp-eq-stp} $\stt^+ \vdash \Gamma \Rightarrow \Delta$ iff $\st^+ \vdash \Gamma \Rightarrow \Delta$.
+\hyperref[pr:sttp-eq-stp]{\emph{Proof.}}
+
+
+
+\section{Lemma}\label{lem:l-nabla-dist}
+\begin{enumerate}
+  \item $\stt^+ \vdash \nabla^n (A \vee B) \Rightarrow \nabla^n A \vee \nabla^n B$.
+
+  \item $\stt^+ \vdash \nabla^n (A \wedge B) \Rightarrow \nabla^n A \wedge \nabla^n B$. 
+
+  \item $\stt^+ \vdash \nabla^n (A \rightarrow B) \Rightarrow \nabla^n A \rightarrow \nabla^n B$.
+\end{enumerate}
+\hyperref[pr:l-nabla-dist]{\emph{Proof.}}
+
+
+
+\section{Theorem}\label{thm:sttp-eq-gsttp} $\stt^+ \vdash \Gamma \Rightarrow \Delta$ iff $\gstt^+ \vdash \Gamma \Rightarrow \Delta$. \hyperref[pr:sttp-eq-gsttp]{\emph{Proof.}}
+
+
+
+\section{Theorem}\label{thm:gstt-cut-reduction}
+If $\gstt \vdash^{r_0} \Gamma \Rightarrow A$ and $\gstt \vdash^{r_1} \Sigma , \nabla^n A \Rightarrow \Delta$, where $r_0, r_1 < \rho(A)$, then $\gstt \vdash^{r_2} \nabla^n \Gamma, \Sigma \Rightarrow \Delta$ and $r_2 < \rho(A)$.\hyperref[pr:gstt-cut-reduction]{\emph{Proof.}}
+
+
+
+\section{Theorem}\label{thm:gstt-eq-gsttp} $\gstt \vdash \Gamma \Rightarrow \Delta$ iff $\gstt^+ \vdash \Gamma \Rightarrow \Delta$. \hyperref[pr:gstt-eq-gsttp]{\emph{Proof.}}
+
+
+
+\section{Corollary}\label{thm:gstt-eq-stp} $\gstt \vdash \Gamma \Rightarrow \Delta$ iff $\st^+ \vdash \Gamma \Rightarrow \Delta$. \hyperref[pr:gstt-eq-stp]{\emph{Proof.}}
+
+
+
+\section{Corollary} $\stl = \gsttl$, thus, we have a cut-free system for $\stl$.
+
+
+\pagebreak
+
+\part*{Proofs}
+\setcounter{section}{0}
+
+\section{Proof of \ref{thm:stt-id-form}}\label{pr:stt-id-form}
+\input{thm/stt-id-form}
+
+
+\section{Proof of \ref{lem:stt-inversion}}\label{pr:stt-inversion} \input{thm/l-lconj-inv}
+
+
+
+\section{Proof of \ref{thm:stt-lc-elim}}\label{pr:stt-lc-elim}
+By induction on the proof for $\Gamma, A^{n+1} \Rightarrow \Delta$, which we call $\D$ and ends with rule $R$.
+Cases for axioms are trivial. All cases where none of occurrences of $A$ are principal are handled by commuting $R$ with $IH(D_i)$. Now suppose $R$ is either of the following and $A$ is principal in $R$.
+\begin{itemize}
+  \item[$(L \wedge)$] Let $A = A \wedge B$.
+  \begin{prooftree}
+    \AXC{$\D_0$} \noLine
+    \UIC{$\Gamma, A, B, (A \wedge B)^n \Rightarrow \Delta$}
+    \RightLabel{$L \wedge$}
+    \UIC{$\Gamma, (A \wedge B)^{n+1} \Rightarrow \Delta$}		
+  \end{prooftree}
+  Then by Lemma \ref{lem:stt-inversion} we have $\Gamma, A^{n+1}, B^{n+1} \Rightarrow \Delta$. Using induction hypothesis twice, we would have $\Gamma, A, B \Rightarrow \Delta$. $L \wedge$ will result in the desired sequent.
+
+  \item[$(L \vee)$] Let $A = A \vee B$.
+  \begin{prooftree}
+    \AXC{$\D_0$} \noLine
+    \UIC{$ \Gamma, A, (A \vee B)^n \Rightarrow \Delta$}
+    \AXC{$\D_1$} \noLine
+    \UIC{$\Gamma, B, (A \vee B)^n \Rightarrow \Delta$}
+    \RightLabel{$L \vee$}
+    \BIC{$ \Gamma, (A \vee B)^{n+1} \Rightarrow \Delta$}		
+  \end{prooftree}
+  By Lemma \ref{lem:stt-inversion} for $\D_0$ and $\D_1$ we have $\Gamma, A^{n+1} \Rightarrow \Delta$ and $\Gamma, B^{n+1} \Rightarrow \Delta$. By induction hypothesis we have $\Gamma, A \Rightarrow \Delta$ and $\Gamma, B \Rightarrow \Delta$. By $L \vee$ we have the desired sequent.
+
+  \item[$(L \rightarrow)$] Let $A = \nabla (A \rightarrow B)$.
+  \begin{prooftree}
+    \AXC{$\D_0$} \noLine
+    \UIC{$\Gamma, (\nabla (A \rightarrow B))^{n+1} \Rightarrow A$}
+    \AXC{$\D_1$} \noLine
+    \UIC{$\Gamma, B, (\nabla (A \rightarrow B))^n \Rightarrow \Delta$}
+    \RightLabel{$L \rightarrow$}
+    \BIC{$\Gamma, (\nabla (A \rightarrow B))^{n+1} \Rightarrow \Delta$}
+  \end{prooftree}
+  By Lemma \ref{lem:stt-inversion} for $\D_1$ we have $\Gamma, B^{n+1} \Rightarrow \Delta$. By induction hypothesis we have $\Gamma, \nabla (A \rightarrow B) \Rightarrow A$ and $\Gamma, B$. By $L \rightarrow$ we have the desired sequent.
+\end{itemize}
+
+
+
+\section{Proof of \ref{thm:stt-eq-st}}\label{pr:stt-eq-st}\quad \\
+($\Rightarrow$) All the rules in $\stt$ are also in $\st$, except for $L \wedge$ and $L \rightarrow$, which can be easily imitated in $\st$ using the same logical rules and structural rules in $\st$. \\
+($\Leftarrow$) All the rules in $\st$ are also in $\stt$, except for $Lc$, which can be imitated in $\stt$ using Theorem \ref{thm:stt-lc-elim}.
+
+
+
+\section{Proof of \ref{thm:sttp-eq-stp}}\label{pr:sttp-eq-stp}\quad \\
+Similar to \ref{pr:stt-eq-st}.\\
+($\Rightarrow$) By induction on the structure of $\D$, the proof-tree for $\Gamma \Rightarrow \Delta$ in $\stt^+$, which ends with rule $R$.
+For the cases where $R$ is also a rule in $\st^+$, just apply $R$ on the proof-trees that we get from induction hypothesis for the sub-tree(s) of $\D$. If $R$ is $L \wedge$, we must use both $L \wedge_1$ and $L \wedge_2$, and $Lc$ in $\st^+$. If $R$ is $L \rightarrow$, we must use $Lw$ to prepare the context before using $L \rightarrow$ in $\st^+$.\\
+($\Leftarrow$) Similar to the other direction, except that in the case for $Lc$ we must use Theorem \ref{thm:stt-lc-elim}.
+
+
+\section{Proof of \ref{lem:l-nabla-dist}}\label{pr:l-nabla-dist}\quad \\
+\begin{enumerate}
+  \item \quad \input{thm/nabla-disj}
+  \item \quad \input{thm/nabla-conj}
+  \item \quad \input{thm/nabla-impl}
+\end{enumerate}
+
+
+
+\section{Proof of \ref{thm:sttp-eq-gsttp}}\label{pr:sttp-eq-gsttp}\quad \\
+($\Rightarrow$) Easily follows from the fact that all rules of $\stt^+$ are just instances of $\gstt^+$'s rules.\\
+($\Leftarrow$) We will use induction on the proof-tree $\D$ for $\Gamma \Rightarrow \Delta$ in $\gstt^+$, which ends with rule $R$.
+
+The cases for Axioms are trivial.
+For the rules that are common between two systems, just apply $R$ on the proof-tree(s) from the induction hypothesis.
+In the cases for $L \wedge$, $L \vee$ and $L \rightarrow$, do the same, and also $\nabla cut$ the sequents proved in Lemma \ref{lem:l-nabla-dist} into the resulting sequent. Finally, if $R$ is $\nabla cut$, just apply $N$ $n$ times before using $cut$ in $\stt^+$.
+
+
+
+\section{Proof of \ref{thm:gstt-cut-reduction}}\label{pr:gstt-cut-reduction}
+\input{thm/gstt-cut-reduction}
+
+
+
+\section{Proof of \ref{thm:gstt-eq-gsttp}}\label{pr:gstt-eq-gsttp}
+\input{thm/gstt-cut-elim}
+
+
+
+\section{Proof of \ref{thm:gstt-eq-stp}}\label{pr:gstt-eq-stp}
+Trivial.
+
+
+
+\pagebreak
+
+\part*{\emph{Notes}}
+
+\begin{itemize}
+  \item We can't eliminate weakening rules from $\stt$, because of $N$.
+
+  \item $L \wedge$ in $\stt$ gives us (partial) normality.
+  
+  \item We need Inversion Lemmas and Contraction Admissibility Theorem to preserve length, because we will use induction more than one on the case for $L \wedge$ in Contraction Admissibility Theorem.
+  
+  \item We need $Lw$ in $\stt$ to add more than one formula to the left-side, at once, since we will have to do so in $L \wedge$ Admissibility Lemma, in the case where the $A \wedge B$ is principal in $Lw$.
+  
+  \item We can't prove inverse of $L \rightarrow$, because
+  \begin{prooftree}
+    \RightLabel{$Id$}
+    \AXC{$p \Rightarrow p$}
+    \RightLabel{$Id$}
+    \AXC{$q \Rightarrow q$}
+    \RightLabel{$L \rightarrow$}
+    \BIC{$\nabla (p \rightarrow q), p \Rightarrow q$}
+    \RightLabel{$R \rightarrow$}
+    \UIC{$p \rightarrow q \Rightarrow p \rightarrow q$}
+    \RightLabel{$N$}
+    \UIC{$\nabla (p \rightarrow q) \Rightarrow \nabla (p \rightarrow q)$}
+  \end{prooftree}
+  but $q \Rightarrow \nabla (p \rightarrow q)$ needs (implies?) $Fa$.
+
+  \item Inversion Lemmas for the left-rules are generalized with arbitrary number of $\nabla$s, because in the case for $R \rightarrow$ we would have a $\nabla$ added to the left-side of the premise.
+  
+  \item Not sure if we still have to eliminate generalized contraction.
+  
+\end{itemize}
+
+\end{document}

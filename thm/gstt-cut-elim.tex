@@ -1,0 +1,9 @@
+
+First, we will show that for any non-zero-rank proof of $\Gamma \Rightarrow \Delta$ like $\D$ in $\gstt^+$, there is another proof of the same sequent with a strictly lower rank. Suppose $\D$ has subtree(s) called $\mathcal{D}_0$ (and possibly $\mathcal{D}_1$, if the last rule has two premises). Using induction on $h(\D)$, the induction hypothesis for $\D_i ~(i \in \{0,1\})$ gives us a proof-tree with the same conclusion, which we call $\IH(\D_i)$, but with a lower rank, i.e. $\rho(\IH(\D_i)) < \rho(\D_i)$. We now consider two cases for the last rule in $\D$.
+
+\begin{enumerate}[label=\Roman*]
+	\item If the last rule of $\D$ is of a lower rank than $\D$ itself, which means that the last rule in $\D$ is not the $\nabla cut$ instance with the maximum rank, then we can apply the same last rule on $\IH(\D_0)$ (and possibly $\D_1$), to construct a proof of $\Gamma \Rightarrow \Delta$ with a strictly lower rank.
+	
+	\item If the last rule of $\D$ is the instance of $\nabla cut$ rule instance with the maximum rank, we can apply Theorem \ref{thm:gstt-cut-reduction} to $\IH(\D_0)$ and $\IH(\D_1)$ to prove the same sequent as it would be proved by $\nabla cut$, but with a strictly lower rank.
+\end{enumerate}
+So for any proof of $\Gamma \Rightarrow \Delta$ in $\gstt^+$, we also have a proof of rank $0$, which is cut-free, and hence provable in $\gstt$.

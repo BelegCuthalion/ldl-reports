@@ -1,0 +1,325 @@
+
+    We have two proof-trees
+    \[
+      \genfrac{}{}{0pt}{}{\D_0}{\Gamma \Rightarrow A}
+      \hspace{3em}
+      \genfrac{}{}{0pt}{}{\D_1}{\Sigma, \nabla^n A \Rightarrow \Delta}
+    \]
+    both of a lower rank than that of $A$, and we want to construct a proof-tree
+    \[\genfrac{}{}{0pt}{}{\D}{\nabla^n \Gamma, \Sigma \Rightarrow \Delta} \]
+    without increasing the cut rank.
+  
+    The construction takes place in different cases for the last rule that occurs in $\D_0$ and $\D_1$, which we call $R_0$ and $R_1$, respectively.
+
+    The cases are divided into three parts. In the first part, our construction would depend only on $R_0$, and it would work in all cases for $R_1$. The second part is similar: Any of the remaining cases for $R_1$ will also cover all the cases for $R_0$. The cases that remain for the third part are the cases where our construction depends on \emph{both} $R_0$ and $R_1$, which are the cases that the cut-formula is altered in both of the proof-trees. In these cases, $R_1$ determines a specific form for the cut-formula, which will also determine $R_1$.
+  
+    In first two parts of the cases, we will need induction hypothesis only for premises of one of the subtrees. But in the third part, we need to use induction hypotesis for premises in both $\D_0$ and $\D_1$. So we will apply induction on $h(\D_0) + h(\D_1)$, generalizing all other parameters. Thus, the induction hypothesis reads like this: For any two proof-trees $\D_0'$ and $\D_1'$ such that $h(\D_0') + h(\D_1') < h(\D_0) + h(\D_1)$, where $\D_0'$ proves $\Gamma' \Rightarrow A'$ and $\D_1'$ proves $\Sigma', \nabla^{n'} A'\Rightarrow \Delta'$ for arbitrary $\Gamma'$, $\Sigma'$, $\Delta'$, $A'$ and $n'$, for which we have $\rho(\D_0'),\rho(\D_1') < \rho(A')$, the induction hypothesis gives us a prooftree, denoted by $\IH(\D_0', \D_1')$, which proves $\nabla^{n'}\Gamma', \Sigma' \Rightarrow \Delta'$, and we will also have $\rho(\IH(\D_0', \D_1')) < \rho(A')$.
+  
+    Now, in any of the following cases, suppose $\D_0$ and $\D_1$ end with any of the rules of $\gstt^+$, and construct the proof-tree $\D$ accordingly.
+
+    \textbf{Part I.} First, assume that $R_0$ is an axiom and $R_1$ is any rule. The cases where $R$ is $Id$ or $L \bot$ would be trivial, and $R \top$ is handled by Lemma \ref{lem:gstt-top-redundant}.
+    Now, let $R_0 \in \{ Lw, Rw, L \wedge, L \vee, L \rightarrow, \nabla cut, N \}$. In all these cases---again, independent of $\D_1$---it suffices to use induction on the premises(s) of this rule and $\D_1$ to remove the cut-formula from both subtrees. Then, we can apply $R$ again to get the desired sequent.\\
+  
+    \noindent($L \wedge$)
+
+    Let $R$ be $L \wedge$, that is
+    \begin{prooftree}
+      \noLine
+      \AXC{$\D_0'$}
+      \UIC{$\Gamma, \nabla^r B, \nabla^r C \Rightarrow A$}
+      
+      \RightLabel{$L \wedge$}
+      \UIC{$\Gamma, \nabla^r (B \wedge C) \Rightarrow A$}
+   \end{prooftree}
+   Then by applying $L \wedge$ on $\IH(\D_0', \D_1)$ we have
+   \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\Gamma, \nabla^r B, \nabla^r C \Rightarrow A$}
+    
+    \noLine
+    \AXC{$\D_1$}
+    \UIC{$\Sigma, \nabla^n A\Rightarrow \Delta$}
+    
+    \RightLabel{IH}
+    \BIC{$\nabla^n \Gamma, \nabla^{n+r} B, \nabla^{n+r} C, \Sigma \Rightarrow \Delta$}
+  
+    \RightLabel{$L \wedge$}
+    \UIC{$\nabla^n \Gamma, \nabla^{n+r} (B \wedge C), \Sigma \Rightarrow \Delta$}
+   \end{prooftree}\quad\\
+  
+   
+  \noindent($L \vee$):
+  Let
+     \begin{prooftree}
+       \noLine
+       \AXC{$\D_0'$}
+       \UIC{$\Gamma, \nabla^r B \Rightarrow A$}
+       
+       \noLine
+       \AXC{$\D_0''$}
+       \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+       
+       \RightLabel{$L \vee$}
+       \BIC{$\Gamma, \nabla^r (B \vee C) \Rightarrow A$}
+    \end{prooftree}
+    Then
+    \begin{prooftree}
+      \noLine
+      \AXC{$\D_0'$}
+      \UIC{$\Gamma, \nabla^r B \Rightarrow A$}
+      
+      \noLine
+      \AXC{$\D_1$}
+      \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+      
+      \RightLabel{IH}
+      \BIC{$\nabla^n \Gamma, \nabla^{n+r} B, \Sigma \Rightarrow \Delta$}
+      
+  
+      \noLine
+      \AXC{$\D_0''$}
+      \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+      
+      \noLine
+      \AXC{$\D_1$}
+      \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+      
+      \RightLabel{IH}
+      \BIC{$\nabla^n \Gamma, \nabla^{n+r} C, \Sigma \Rightarrow \Delta$}
+  
+      \RightLabel{$L \vee$}
+      \BIC{$\nabla^n \Gamma, \nabla^{n+r} (B \vee C), \Sigma \Rightarrow \Delta$}
+     \end{prooftree}\quad\\
+  
+   
+  \noindent($L \rightarrow$):
+  Let
+   \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\Gamma \Rightarrow \nabla^r B$}
+    \noLine
+    \AXC{$\D_0''$}
+    \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+    \RightLabel{$L \rightarrow$}
+    \BIC{$\Gamma, \nabla^{r+1} (B \rightarrow C) \Rightarrow A$}
+   \end{prooftree}
+   Then
+   \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\Gamma \Rightarrow \nabla^r B$}
+    \RightLabel{$N^n$} \doubleLine
+    \UIC{$\nabla^n \Gamma \Rightarrow \nabla^{n+r} B$}
+    \RightLabel{$Lw$}
+    \UIC{$\nabla^n \Gamma, \Sigma \Rightarrow \nabla^{n+r} B$}
+
+    \noLine
+    \AXC{$\D_0''$}
+    \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+    \noLine
+    \AXC{$\D_1$}
+    \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+    \RightLabel{IH}
+    \BIC{$\nabla^n \Gamma, \nabla^{n+r} C, \Sigma \Rightarrow \Delta$}
+
+    \RightLabel{$L \rightarrow$}
+    \BIC{$\nabla^n \Gamma, \nabla^{n+r+1} (B \rightarrow C), \Sigma \Rightarrow \Delta$}
+   \end{prooftree}
+
+  \noindent($\nabla cut$):
+  Assume $\D_0$ ends with a $\nabla cut$ with cut-formula $A'$. Recall that by assumption $A'$ must have a lower rank than $A$.
+   \begin{prooftree}
+     \noLine
+     \AXC{$\D_0'$}
+     \UIC{$\Gamma \Rightarrow A'$}
+     
+     \noLine
+     \AXC{$\D_0''$}
+     \UIC{$\Pi, \nabla^{n'} A' \Rightarrow A$}
+     
+     \RightLabel{$\nabla cut$}
+     \BIC{$\nabla^{n'} \Gamma, \Pi \Rightarrow A$}
+   \end{prooftree}
+   We must construct a proof-tree for $\nabla^{n + n'} \Gamma, \nabla^n \Pi, \Sigma \Rightarrow \Delta$. We can use the induction hypothesis first to remove $A$, and then use a low rank $\nabla cut$ to remove $A'$.
+   \begin{prooftree}
+     \noLine
+     \AXC{$\D_0'$}
+     \UIC{$\Gamma \Rightarrow A'$}
+     
+     \noLine
+     \AXC{$\D_0''$}
+     \UIC{$\Pi, \nabla^{n'} A' \Rightarrow A$}
+  
+     \noLine
+     \AXC{$\D_1$}
+     \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+  
+     \RightLabel{IH}
+     \BIC{$\nabla^n \Pi, \nabla^{n + n'} A', \Sigma \Rightarrow \Delta$}
+     
+  
+     \RightLabel{$\nabla cut$}
+     \BIC{$\nabla^{n + n'} \Gamma, \nabla^n \Pi, \Sigma \Rightarrow \Delta$}
+   \end{prooftree}\quad\\  
+
+  \noindent($N$):
+  Let $A = \nabla B$ and suppose that $\D_0$ proves $\nabla \Gamma \Rightarrow \nabla B$ and $\D_1$ proves $\Sigma, \nabla^n (\nabla B) \Rightarrow \Delta$. Induction hypothesis for $\D_0$'s immediate sub-tree and $\D_1$ gives us $\nabla^{n+1} \Gamma, \Sigma \Rightarrow \Delta$.
+
+  \textbf{Part II.} The rest of the cases for $R_0$ can't be solved independent of $R_1$. So in the second part, we will investigate the cases for $R_1$ where the solution can be constructed independent of $R_0$. Notice that this time we have less possibilities for $R_0$, because we have already solved most of them in the first part. We can assume that $R_0$ is either of $R\star$ for $\star \in \{\wedge, \vee_{1/2}, \rightarrow\}$.
+  
+   The cases where $R_1$ is an axiom are trivial. Notice that in $L \bot$ case, $\bot$ can't be the cut-formula, since all possible cases for $\D_0$ alter the right side of the sequent, but none of them are able to introduce $\bot$ on the right-side of a sequent.
+   In the remaining cases, where the cut-formula is not principal in $R_1$, the construction is similar to the first part: Apply the same rule on the sequent from the induction hypothesis. But in cases where $A$ is principal in $R_1$, which are to be handeld in the third part, we must also use the induction hypothesis for $\D_0$, both with a different cut-fornula.
+   
+   We now address the second part of the cases. For the sake of briefness, we will only explain the cases for $L \wedge$, $R \vee_1$, $R \rightarrow$ and $N$, the last two of which are of special concern, in which we must use induction hypothesis with different $n$. The rest would be handled similarly. Now suppose $R_1$ is either of the following.\\
+  
+   
+   \noindent($L \wedge$):
+   Assume that $R_1$ is $L \wedge$, but the cut-formula is not principal.
+   \begin{prooftree}
+    \AXC{$\D_1'$} \noLine
+    \UIC{$\Sigma, \nabla^n A, \nabla^r B, \nabla^r C \Rightarrow \Delta$}
+    \RightLabel{$L \wedge$}
+    \UIC{$\Sigma, \nabla^n A, \nabla^r (B \wedge C) \Rightarrow \Delta$}
+   \end{prooftree}
+   From induction hypothesis we have $\nabla^n \Gamma, \Sigma, \nabla^r B \Rightarrow \Delta$. By $L \wedge$ we have $\nabla^n \Gamma, \Sigma, \nabla^r (B \wedge C) \Rightarrow \Delta$.\\
+
+   \noindent($R \vee_1$): Suppose that $R_1$ is $R \vee_1$.
+   \begin{prooftree}
+    \AXC{$\D_1'$} \noLine
+    \UIC{$\Sigma, \nabla^n A \Rightarrow B$}
+    \RightLabel{$R \vee_1$}
+    \UIC{$\Sigma, \nabla^n A \Rightarrow B \vee C$}
+   \end{prooftree}
+   Again, use the induction hypothesis to get $\nabla^n \Gamma, \Sigma \Rightarrow B$, then apply $R \vee_1$ to reach the desired sequent.\\
+  
+  \noindent($R \rightarrow$): Assume $R_1$ is an instance of $R \rightarrow$.
+  \begin{prooftree}
+    \AXC{$\D_1'$} \noLine
+    \UIC{$\nabla \Sigma, \nabla^{n+1} A, B \Rightarrow C$}
+    \RightLabel{$R \rightarrow$}
+    \UIC{$\Sigma, \nabla^n A \Rightarrow B \rightarrow C$}
+   \end{prooftree}
+  From induction hypothesis (with $n = n+1$), we have $\nabla^{n+1} \Gamma, \nabla \Sigma, B \Rightarrow C$. We can apply $R \rightarrow$ to get $\nabla^n \Gamma, \Sigma \Rightarrow B \rightarrow C$.\\
+  
+  \noindent($N$): Suppose $R_1$ is $N$.
+  \begin{prooftree}
+    \AXC{$\D_1'$} \noLine
+    \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
+    \RightLabel{$N$}
+    \UIC{$\nabla \Sigma, \nabla^{n+1} A \Rightarrow \nabla \Delta$}
+  \end{prooftree}
+  If we assume that the cut-formula is $A$, from the induction hypothesis we have $\nabla^n \Gamma, \Sigma \Rightarrow \Delta$. By $N$ we have $\nabla^{n+1} \Gamma, \nabla \Sigma \Rightarrow \nabla \Delta$, which is the desired sequent. Notice that the cut-formula can't be $\nabla A$, because no candidate for $R_0$ proves a sequent with $\nabla$ on its right-side.
+  
+   \textbf{Part III.} In the last part of the proof, we will show how the construction takes place in the cases where the cut-formula is principal in $R_1$, which can be either of $L\star (\star \in \{\wedge, \vee, \rightarrow\})$.
+   Any choice for $R_1$ also determines $R_0$, because in all candidates for $R_0$, which can be either of $R\star (\star \in \{\wedge, \vee_{1/2}, \rightarrow\})$, the cut-formula $A$ is principal.
+   
+   Now suppose $R_0$ and $R_1$ be instances of the following rules, respectively.\\
+
+  \noindent($R \wedge$ and $L \wedge$): Suppose $R_0$ is $R \wedge$ and $R_1$ is $L \wedge$.
+  \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\Gamma \Rightarrow A_1$}
+    \noLine
+    \AXC{$\D_0''$}
+    \UIC{$\Gamma \Rightarrow A_2$}
+    \RightLabel{$R \wedge$}
+    \BIC{$\Gamma \Rightarrow A_1 \wedge A_2$}
+    
+    \noLine
+    \AXC{$\D_1'$}
+    \UIC{$\Sigma, \nabla^n A_1, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$L \wedge$}
+    \UIC{$\Sigma, \nabla^n (A_1 \wedge A_2) \Rightarrow \Delta$}
+    
+    \noLine
+    \BIC{}
+  \end{prooftree}
+  Then
+  \begin{prooftree}
+    \AXC{$\D_0''$}\noLine
+    \UIC{$\Gamma \Rightarrow A_2$}
+    \AXC{$\D_0'$}\noLine
+    \UIC{$\Gamma \Rightarrow A_1$}
+    \AXC{$\D_1'$}\noLine
+    \UIC{$\Sigma, \nabla^n A_1, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$\nabla cut$}
+    \BIC{$\nabla^n \Gamma, \Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$\nabla cut$}
+    \BIC{$(\nabla^n \Gamma)^2, \Sigma \Rightarrow \Delta$}
+    \RightLabel{$(Lc)$}\doubleLine
+    \UIC{$\nabla^n \Gamma, \Sigma \Rightarrow \Delta$}
+  \end{prooftree}
+  Notice that both instances of $\nabla cut$ in the above proof-tree have lower rank than $\D$. Also notice that we are using Theorem \ref{thm:stt-lc-elim}.\\
+  
+   \noindent($R \vee_1$ or $R \vee_2$, and $L \vee$):
+   
+  Suppose that $R_0$ is either of $R \vee_c ~ (c \in \{1,2\})$ and $R_1$ is $L \vee$.
+  \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\Gamma \Rightarrow A_c$}
+    \RightLabel{$R \vee_c$}
+    \UIC{$\Gamma \Rightarrow A_1 \vee A_2$}
+    \noLine
+    \AXC{$\D_{10}$}
+    \UIC{$\Sigma, \nabla^n A_1 \Rightarrow \Delta$}
+    \noLine
+    \AXC{$\D_{11}$}
+    \UIC{$\Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$L \vee$}
+    \BIC{$\Sigma, \nabla^n (A_1 \vee A_2) \Rightarrow \Delta$}
+    \noLine
+    \BIC{}
+  \end{prooftree}
+  Then
+  \begin{prooftree}
+    \AXC{$\D_0'$}\noLine
+    \UIC{$\Gamma \Rightarrow A_c$}
+    \AXC{$\D_{1c}$}\noLine
+    \UIC{$\Sigma, \nabla^n A_c \Rightarrow \Delta$}
+    \RightLabel{$\nabla cut$}
+    \BIC{$\nabla^n \Gamma, \Sigma \Rightarrow \Delta$}
+  \end{prooftree}
+
+  \noindent($\D_0$ and $L \rightarrow$): Let $R_0$ and $R_1$ be $R \rightarrow$ and $L \rightarrow$ respectively.
+  \begin{prooftree}
+    \noLine
+    \AXC{$\D_0'$}
+    \UIC{$\nabla \Gamma, A_1 \Rightarrow A_2$}
+    \RightLabel{$R \rightarrow$}
+    \UIC{$\Gamma \Rightarrow A_1 \rightarrow A_2$}
+    \noLine
+    \AXC{$\D_1'$}
+    \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \nabla^n A_1$}
+    \noLine
+    \AXC{$\D_1''$}
+    \UIC{$\Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$L \rightarrow$}
+    \BIC{$\Sigma,  \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \Delta$}
+    \noLine
+    \BIC{}
+  \end{prooftree}
+  Then
+  \begin{prooftree}
+    \AXC{$\D_0$} \noLine
+    \UIC{$\Gamma \Rightarrow A_1 \rightarrow A_2$}
+    \AXC{$\D_1'$} \noLine
+    \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \nabla^n A_1$}
+    \RightLabel{IH}
+    \BIC{$\nabla^{n+1} \Gamma, \Sigma \Rightarrow \nabla^n A_1$}
+    \AXC{$\D_1''$} \noLine
+    \UIC{$\Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{$\nabla cut$}
+    \BIC{$\nabla^{n+1} \Gamma, \Sigma^2 \Rightarrow \Delta$}
+    \RightLabel{$Lc$} \doubleLine
+    \UIC{$\nabla^{n+1} \Gamma, \Sigma \Rightarrow \Delta$}
+  \end{prooftree}
+
+  \vspace{5mm}
+
+  Now we have a construction for any two possible pair of rules, in $\gstt^+$. This concludes the proof of the theorem in all cases.
+  \qed
+  

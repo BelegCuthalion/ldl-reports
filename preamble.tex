@@ -11,8 +11,9 @@
 \usepackage{diagbox}
 \usepackage[left=.5in,right=.5in,top=.5in,bottom=.5in]{geometry}
 \usepackage{enumitem}
-\usepackage[colorlinks]{hyperref}
+\usepackage[colorlinks, hypertexnames=false]{hyperref}
 \usepackage{bussproofs}
+\usepackage[normalem]{ulem}
 
 \setitemize{topsep=3pt,parsep=5pt,partopsep=0pt,label=,leftmargin=1.3pc}
 \titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{0.5em}{}
@@ -33,9 +34,22 @@
 \newcommand{\todo}[1]{{\color{red}\textbf{TODO} #1}}
 \newcommand{\red}{\color{red}}
 \newcommand{\stl}{\mathbf{STL}}
+\newcommand{\st}{\text{ST}}
 \newcommand{\gstl}{\mathbf{GSTL}}
+\newcommand{\gst}{\text{GST}}
 \newcommand{\istl}{\mathbf{iSTL}}
+\newcommand{\ist}{\text{iST}}
 \newcommand{\igstl}{\mathbf{iGSTL}}
+\newcommand{\igst}{\text{iGST}}
 \newcommand{\sstl}{\mathbb{S}\mathbf{TL}}
+\newcommand{\gsstl}{\mathbf{G}\mathbb{S}\mathbf{TL}}
+\newcommand{\stt}{\text{ST3}}
+\newcommand{\gstt}{\text{GST3}}
+\newcommand{\gsttl}{\mathbf{GST3L}}
+\newcommand{\istt}{\text{iST3}}
+\newcommand{\igstt}{\text{iGST3}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\IH}{\text{IH}}
+\newcommand{\qed}{{\begin{flushright}$\Box$\end{flushright}}}
 \newtheorem{proposition}{}[section]
 \EnableBpAbbreviations

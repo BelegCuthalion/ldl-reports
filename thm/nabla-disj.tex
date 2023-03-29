@@ -1,0 +1,66 @@
+First, observe that
+
+\begin{prooftree}
+	\AXC{}
+	\RightLabel{$Ta$}
+	\UIC{$\Rightarrow \top$}
+
+	\AXC{}
+	\RightLabel{$(Id)$}
+	\UIC{$C \Rightarrow C$}
+
+	\RightLabel{$L \rightarrow$}
+	\BIC{$\nabla (\top \rightarrow C) \Rightarrow C$}
+\end{prooftree}
+
+
+Now, let $\D$ be the proof-tree above with $C = \nabla A \vee \nabla B$.
+
+\begin{prooftree}
+	\AXC{}
+	\RightLabel{$(Id)$}
+	\UIC{$\nabla A \Rightarrow \nabla A$}
+	\RightLabel{$R\vee_1$}
+	\UIC{$\nabla A \Rightarrow \nabla A \vee \nabla B$}
+	\RightLabel{$Lw$}
+	\UIC{$\nabla A , \top \Rightarrow \nabla A \vee \nabla B$}
+	\RightLabel{$R \rightarrow$}
+	\UIC{$A \Rightarrow \top \rightarrow (\nabla A \vee \nabla B)$}
+
+	\AXC{}
+	\RightLabel{$(Id)$}
+	\UIC{$\nabla B \Rightarrow \nabla B$}
+	\RightLabel{$R\vee_2$}
+	\UIC{$\nabla B \Rightarrow \nabla A \vee \nabla B$}
+	\RightLabel{$Lw$}
+	\UIC{$\nabla B , \top \Rightarrow \nabla A \vee \nabla B$}
+	\RightLabel{$R \rightarrow$}
+	\UIC{$B \Rightarrow \top \rightarrow (\nabla A \vee \nabla B)$}
+
+	\RightLabel{$L\vee$}
+	\BIC{$A \vee B \Rightarrow \top \rightarrow (\nabla A \vee \nabla B)$}
+	\RightLabel{$N$}
+	\UIC{$\nabla (A \vee B) \Rightarrow \nabla (\top \rightarrow (\nabla A \vee \nabla B))$}
+
+	\AXC{$\D$}
+
+	\RightLabel{$cut$}
+	\BIC{$\nabla (A \vee B) \Rightarrow \nabla A \vee \nabla B$}
+\end{prooftree}
+
+Call this proof-tree $\D_1$. Construct $\D_n$ inductively as follows.
+
+\begin{prooftree}
+	\AXC{$\mathcal{D}_{n-1}$}
+	\noLine
+	\UIC{$\nabla^{n-1} (A \vee B) \Rightarrow \nabla^{n-1} A \vee \nabla^{n-1} B$}
+	\RightLabel{$N$}
+	\UIC{$\nabla^n (A \vee B) \Rightarrow \nabla (\nabla^{n-1} A \vee \nabla^{n-1} B)$}
+
+	\AXC{$\mathcal{D}_1$}
+	\noLine
+	\UIC{$\nabla (\nabla^{n-1} A \vee \nabla^{n-1} B) \Rightarrow \nabla^n A \vee \nabla^n B$}
+	
+	\RightLabel{$cut$} \LeftLabel{$\mathcal{D}_n:$}
+	\BIC{$\nabla^n (A \vee B) \Rightarrow \nabla^n A \vee \nabla^n B$}
+\end{prooftree}

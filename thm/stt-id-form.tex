@@ -1,0 +1,65 @@
+By induction on the structure of $A$. Let $A$ have any of the following forms.
+
+($p$) $Id$ proves $\Gamma, p \Rightarrow p$.
+
+($\bot$) $L \bot$ proves $\Gamma, \bot \Rightarrow \bot$.
+
+($\top$) $R \top$ proves $\Gamma, \top \Rightarrow \top$.
+
+($B \wedge C$) By IH we have $\stt \vdash B \Rightarrow B$ and $\stt \vdash C \Rightarrow C$. By $Lw$ we have $\stt \vdash B, C \Rightarrow B$ and $\stt \vdash B, C \Rightarrow C$. By $R \wedge$ we have $\stt \vdash B, C \Rightarrow B \wedge C$. By $L \wedge$ we have $\stt \vdash B \wedge C \Rightarrow B \wedge C$.
+\begin{prooftree}
+  \AXC{IH}
+  \noLine
+  \UIC{$\Gamma, B \Rightarrow B$}
+  \RightLabel{$Lw$}
+  \UIC{$\Gamma, B, C \Rightarrow B$}
+  \AXC{IH}
+  \noLine
+  \UIC{$\Gamma, C \Rightarrow C$}
+  \RightLabel{$Lw$}
+  \UIC{$\Gamma, B, C \Rightarrow C$}
+  \RightLabel{$R \wedge$}
+  \BIC{$\Gamma, B, C \Rightarrow B \wedge C$}
+  \RightLabel{$L \wedge$}
+  \UIC{$\Gamma, B \wedge C \Rightarrow B \wedge C$}
+\end{prooftree}
+
+($B \vee C$)
+\begin{prooftree}
+  \AXC{IH}
+  \noLine
+  \UIC{$\Gamma, B \Rightarrow B$}
+  \RightLabel{$R \vee$}
+  \UIC{$\Gamma, B \Rightarrow B \vee C$}
+  \AXC{IH}
+  \noLine
+  \UIC{$\Gamma, C \Rightarrow C$}
+  \RightLabel{$R \vee$}
+  \UIC{$\Gamma, C \Rightarrow B \vee C$}
+  \RightLabel{$L \vee$}
+  \BIC{$\Gamma, B \vee C \Rightarrow B \vee C$}
+\end{prooftree}
+
+($B \rightarrow C$)
+\begin{prooftree}
+  \AXC{IH} \noLine
+  \UIC{$\nabla \Gamma, \nabla (B \rightarrow C), B \Rightarrow B$}
+  \AXC{IH} \noLine
+  \UIC{$\nabla \Gamma, C \Rightarrow C$}
+  \RightLabel{$L \rightarrow$}
+  \BIC{$\nabla \Gamma, \nabla (B \rightarrow C), B \Rightarrow C$}
+  \RightLabel{$R \rightarrow$}
+  \UIC{$\Gamma, B \rightarrow C \Rightarrow B \rightarrow C$}
+\end{prooftree}
+
+($\nabla B$)
+\begin{prooftree}
+  \AXC{IH} \noLine
+  \UIC{$B \Rightarrow B$}
+  \RightLabel{$N$}
+  \UIC{$\nabla B \Rightarrow \nabla B$}
+  \RightLabel{$Lw$}
+  \UIC{$\Gamma, \nabla B \Rightarrow \nabla B$}
+\end{prooftree}
+
+\qed
