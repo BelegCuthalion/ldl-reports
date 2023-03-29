@@ -3,7 +3,7 @@
 
 \begin{document}
 {\noindent
-	v 1.1 \\
+	v 1.1.1 \\
   \\
 {\Huge\textbf{A Contraction-free System for STL}}
 }
@@ -185,6 +185,12 @@ We denote the logic of $\gstt$, which is the set of all sequents provable in $\g
 
 
 
+\section{Theorem}\label{lem:gstt-top-redundant}
+If $\gstt \vdash^r \Gamma , \nabla^n \top \Rightarrow \Delta$ then $\gstt \vdash^r \Gamma \Rightarrow \Delta$.
+\hyperref[pr:gstt-top-redundant]{\emph{Proof.}}
+
+
+
 \section{Theorem}\label{thm:gstt-cut-reduction}
 If $\gstt \vdash^{r_0} \Gamma \Rightarrow A$ and $\gstt \vdash^{r_1} \Sigma , \nabla^n A \Rightarrow \Delta$, where $r_0, r_1 < \rho(A)$, then $\gstt \vdash^{r_2} \nabla^n \Gamma, \Sigma \Rightarrow \Delta$ and $r_2 < \rho(A)$.\hyperref[pr:gstt-cut-reduction]{\emph{Proof.}}
 
@@ -283,6 +289,10 @@ For the rules that are common between two systems, just apply $R$ on the proof-t
 In the cases for $L \wedge$, $L \vee$ and $L \rightarrow$, do the same, and also $\nabla cut$ the sequents proved in Lemma \ref{lem:l-nabla-dist} into the resulting sequent. Finally, if $R$ is $\nabla cut$, just apply $N$ $n$ times before using $cut$ in $\stt^+$.
 
 
+\section{Proof of \ref{lem:gstt-top-redundant}}\label{pr:gstt-top-redundant}
+\input{thm/gstt-top-redundant}
+
+
 
 \section{Proof of \ref{thm:gstt-cut-reduction}}\label{pr:gstt-cut-reduction}
 \input{thm/gstt-cut-reduction}
@@ -310,7 +320,7 @@ Trivial.
   
   \item We need Inversion Lemmas and Contraction Admissibility Theorem to preserve length, because we will use induction more than one on the case for $L \wedge$ in Contraction Admissibility Theorem.
   
-  \item We need $Lw$ in $\stt$ to add more than one formula to the left-side, at once, since we will have to do so in $L \wedge$ Admissibility Lemma, in the case where the $A \wedge B$ is principal in $Lw$.
+  \item We need $Lw$ in $\stt$ to add more than one formula to the left-side, at once, since we will have to do so in $L \wedge$ Inversion Lemma, in the case where the $A \wedge B$ is principal in $Lw$.
   
   \item We can't prove inverse of $L \rightarrow$, because
   \begin{prooftree}
