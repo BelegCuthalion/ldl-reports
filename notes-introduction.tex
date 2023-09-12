@@ -1,0 +1,81 @@
+\documentclass[a4paper, 12pt]{amsart}
+\input{preambleintro}
+
+\begin{document}
+{\noindent
+	v 0.1 \\
+  \\
+{\Huge\textbf{An introduction to the logic of dynamic locales}}
+}\\
+\vspace*{1cm}
+\setcounter{section}{1}
+
+As a logical connective, \emph{the implication} is supposed to capture the higher order notion of \emph{logical entailment}. So it must reflect properties of the entailment relation in the language level. But we may have a broad meaning of an entailment relation in mind, to include different logics. Also we may choose which set of properties we expect the implication to reflect, and which structures we want it to internalize. This gives rise to many different instances of an implication; Indeed, for example, the implication in classical, intuitionistic, substructural or basic logic behave differently.
+
+For a more particular example, observe the usual behaviour that we expect from the implication in intuitionistic or classical logic: It internalizes properties such as reflexivity, transitivity, and all other properties of the entailment relation common in both intuitionistic and classical settings, like how it deals with the meaning of conjunction of disjunction operators. But since there are intrinsic differences between what we intend by intuitionistic and classical entailment, their respecting implication connective also behaves differently in many ways. For instance, one can observe that the validity of $\varphi = \neg \neg P \rightarrow P$ can be interpreted as the internalization of RAA. So, contrary to classical implication, the intuitionistic implication must reflect the fact that RAA is not a valid rule of inference in intuitionistic setting by refuting $\varphi$.
+
+This leaves us with the question that what is the essence of internalizing a general entailment relation. The first author inverstigates this question in \cite{amir}, by introducing an abstract notion of implication, general enough to include the definitions of all the implication connective for the logics that was mentioned above. The next definition from \cite{amir} requires an \emph{abstract implication} to capture the preorder structure of entailment relation on the meet-semilatice of propositions.
+
+\begin{dfn}
+Let $(\mathcal{A}, \le, \wedge, 1)$ be a meet-semilatice. An abstract implication on $\mathcal{A}$ is a monotone operator $\rightarrow : \mathcal{A}^{op} \times \mathcal{A} \rightarrow \mathcal{A}$ which satisfies the following:
+\begin{enumerate}
+  \item $a \le b$ implies $1 \le a \rightarrow b$
+  \item $(a \rightarrow b) \wedge (b \rightarrow c) \le (a \rightarrow c)$
+  \item $(a \rightarrow b) \wedge (a \rightarrow c) \le (a \rightarrow b \wedge c)$
+\end{enumerate}
+Then the structure $(\mathcal{A}, \le, \wedge, 1, \rightarrow)$ is called a \emph{strong algebra}.
+\end{dfn}
+Observe that both implications in the intuitionistic and classical settings satisfy this definition, capturing the preorder structure of entailment over proppsitions in their respective semantics, namely, Heyting and Boolean algebras. We can also find trivial instances of this definition, like $a \rightarrow b = 1$, which shows that some desired properties of an implication do not necessarily hold for abstract implications, such as the adjunction $(\_) \wedge x \dashv x \rightarrow (\_)$. This shows that, from a logical point of view, abstract implication is not generally well-behaved. For example, we would lose a sound pair of introduction-elimination ruels.
+
+The interesting instance of an abstract implication, which is also logically well-behaved, is that of a \emph{$\nabla$-algebra}.
+\begin{dfn} Let $(X, \le, \vee, \wedge, 0, 1)$ be a bounded lattice. A $\nabla$-algebra is a structure $(X, \le, \vee, \wedge, \rightarrow_X, \nabla, 0, 1)$ where $\rightarrow_X$ and $\nabla$ are binary and unary operations respectively, satisfying
+\[ \nabla c \wedge a \le b \iff c \le a \rightarrow_X b \]
+\end{dfn}
+It is not hard to see that this definition implies that $\rightarrow_X$ is an abstract implication. It also follows that $\nabla$ is monotone and join-preserving.
+So in one hand, $\rightarrow_X$ is an abstract implication. But any abstract implication can be represented in a $\nabla$-algebra on the other hand, making $\nabla$-algebras a natural source of the abstract implications, as it is shown in \cite{amir}.
+
+\begin{thm}
+For any strong algebra $\mathcal{A}$ there exists a $\nabla$-algebra $X$, a monotone function $F$ over $X$, and a meet-semilatice embedding $i : \mathcal{A} \rightarrow A$ such that $i(a \rightarrow b) = F(i(a)) \rightarrow_X F(i(b))$.
+\end{thm}
+As a result, $\nabla$-algerbras could be seen as the logically well-behaved counterpart for strong algebras, which motivates studying the former.\\
+
+Another motivation for studying $\nabla$-algebras are from \emph{dynamic topological systems}, which are complete lattices whose meet distributes over arbitrary join, namely a \emph{locale}, augumented with a localic morphism over it, i.e., the morphism should preserv all meets and joins. One can observe that this definition is essentially that of a class of $\nabla$-algebras whose $\nabla$ operator also preserves all meets, which are called \emph{normal} $\nabla$-algebras in \cite{amir}, or as we will call them in this paper, \emph{dynamic locals}.
+
+\begin{dfn}
+  A \emph{dynamic local} is a $\nabla$-algebra $(\mathcal{A}, \le, \wedge, \vee, \rightarrow, \nabla, 0, 1)$, where $\nabla$ commutes with $\wedge$.
+\end{dfn}
+
+In light of these observations, \cite{amir} introduces sequent style systems for $\nabla$-algebras, along with different semantics for them. In this paper we will talk about the logic of dynamic locals, called $\ist(N)$ in \cite{amir}.
+\begin{dfn}\quad
+  \begin{enumerate}
+    \item A sequent is a pair $\Gamma \Rightarrow \Delta$ where $\Gamma$ is a multiset of formulas, and $\Delta$ is either a formula or empty, in language of propositional logic with a unary modal operator $\nabla$.
+    \item A valuation in a $\nabla$-algebra $X$ is a function $V$ which take all formulas to $X$ and satisfies the following:
+    \begin{enumerate}
+      \item $V(\bot) = 0$
+      \item $V(\top) = 1$
+      \item $V(A \vee B) = V(A) \vee V(B)$
+      \item $V(A \wedge B) = V(A) \wedge V(B)$
+      \item $V(A \rightarrow B) = V(A) \rightarrow_X V(B)$
+      \item $V(\nabla A) = \nabla A$
+    \end{enumerate}
+    \item We say that a sequent $\Gamma \Rightarrow \Delta$ is true for valuation $V$ in a $\nabla$-algebra $(X, \le, \vee, \wedge, \rightarrow_X, \nabla, 0, 1)$, written $(X, V) \vDash \Gamma \Rightarrow \Delta$, if $\bigwedge_{A \in \Gamma} V(A) \le V(\Delta)$.
+  \end{enumerate}
+\end{dfn}
+
+The system which is of our interest in this paper, is called $\istl(N)$ in \cite{amir}.
+\input{dfn/istl}
+\vspace*{1cm}
+
+It is shown in \cite{amir} that $\istl(N)$ is sound and complete with respect to the class of all normal $\nabla$-algebras.
+\begin{thm}
+  $\istl(N)$ proves exactly all the sequents which are true in all dynamic locals.
+\end{thm}
+An extensive investigation of this system is done in \cite{amir} from an algebraic and topological point of view. While proof theoretic approaches fail in absence of a reasonable \emph{analyticity} criterion. The system above is not analytic in the sense that a proof-tree in this system can have subtrees of with new formulas, because of the rules $R \rightarrow$ and $cut$. The added $\nabla$ in the premise of the rule $R \rightarrow$ can be neglected by relaxing the analyticity criterion up to $\nabla$, which would be enough for proof theoretic methods to be applicable. But we need a system without $cut$, since we can not show that it is admissibile in the system above using commons methods for cut-elimination. In our pursuit of an analytic system for the logic of dynamic locales, we would need to drastically change many rules of the system above, and also eliminate, and show derivability of the rule $Lc$.
+
+In this paper, we will introduce a sequent style, conraction-free and cut-free calculus for the logic of dynamic locales, called $\stt$\footnote{\red Better name?}.
+In the second section, the cut-elimination theorems for $\stt$ will be proved. Then, in section three, we will use this theorem to deduce important results about the logic of dynamic locales and some of its extensions, such as subformula property, disjuction property and admissibility of the Visser's rule.
+And in the last section, we will show that some extensions of $\stt$ have interpolation property.
+
+\bibliographystyle{abbrv}
+\bibliography{refs}
+\end{document}

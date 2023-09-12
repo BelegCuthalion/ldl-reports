@@ -98,10 +98,10 @@
    \begin{prooftree}
     \noLine
     \AXC{$\D_0'$}
-    \UIC{$\Gamma \Rightarrow \nabla^r B$}
+    \UIC{$\Gamma, \nabla^{r+1} (B \rightarrow C) \Rightarrow \nabla^r B$}
     \noLine
     \AXC{$\D_0''$}
-    \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+    \UIC{$\Gamma, \nabla^{r+1} (B \rightarrow C), \nabla^r C \Rightarrow A$}
     \RightLabel{$L \rightarrow$}
     \BIC{$\Gamma, \nabla^{r+1} (B \rightarrow C) \Rightarrow A$}
    \end{prooftree}
@@ -109,20 +109,20 @@
    \begin{prooftree}
     \noLine
     \AXC{$\D_0'$}
-    \UIC{$\Gamma \Rightarrow \nabla^r B$}
+    \UIC{$\Gamma, \nabla^{r+1} (B \rightarrow C) \Rightarrow \nabla^r B$}
     \RightLabel{$N^n$} \doubleLine
-    \UIC{$\nabla^n \Gamma \Rightarrow \nabla^{n+r} B$}
+    \UIC{$\nabla^n \Gamma, \nabla^{n+r+1} (B \rightarrow C) \Rightarrow \nabla^{n+r} B$}
     \RightLabel{$Lw$}
-    \UIC{$\nabla^n \Gamma, \Sigma \Rightarrow \nabla^{n+r} B$}
+    \UIC{$\nabla^n \Gamma, \nabla^{n+r+1} (B \rightarrow C), \Sigma \Rightarrow \nabla^{n+r} B$}
 
     \noLine
     \AXC{$\D_0''$}
-    \UIC{$\Gamma, \nabla^r C \Rightarrow A$}
+    \UIC{$\Gamma, \nabla^r C, \nabla^{r+1} (B \rightarrow C) \Rightarrow A$}
     \noLine
     \AXC{$\D_1$}
     \UIC{$\Sigma, \nabla^n A \Rightarrow \Delta$}
     \RightLabel{IH}
-    \BIC{$\nabla^n \Gamma, \nabla^{n+r} C, \Sigma \Rightarrow \Delta$}
+    \BIC{$\nabla^n \Gamma, \nabla^{n+r+1} (B \rightarrow C), \nabla^{n+r} C, \Sigma \Rightarrow \Delta$}
 
     \RightLabel{$L \rightarrow$}
     \BIC{$\nabla^n \Gamma, \nabla^{n+r+1} (B \rightarrow C), \Sigma \Rightarrow \Delta$}
@@ -296,11 +296,25 @@
     \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \nabla^n A_1$}
     \noLine
     \AXC{$\D_1''$}
-    \UIC{$\Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2), \nabla^n A_2 \Rightarrow \Delta$}
     \RightLabel{$L \rightarrow$}
     \BIC{$\Sigma,  \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \Delta$}
     \noLine
     \BIC{}
+  \end{prooftree}
+  Let the following proof-tree be called $\D$.
+  \begin{prooftree}
+    \AXC{$\D_0'$} \noLine
+    \UIC{$\nabla \Gamma, A_1 \Rightarrow A_2$}
+
+    \AXC{$\D_0$} \noLine
+    \UIC{$\Gamma \Rightarrow A_1 \rightarrow A_2$}
+    \AXC{$\D_1''$} \noLine
+    \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2), \nabla^n A_2 \Rightarrow \Delta$}
+    \RightLabel{IH}
+    \BIC{$\nabla^{n+1} \Gamma, \Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+    \LeftLabel{$\D$} \RightLabel{$\nabla cut$}
+    \BIC{$(\nabla^{n+1} \Gamma)^2, \nabla^n A_1, \Sigma \Rightarrow \Delta$}
   \end{prooftree}
   Then
   \begin{prooftree}
@@ -310,11 +324,13 @@
     \UIC{$\Sigma, \nabla^{n+1} (A_1 \rightarrow A_2) \Rightarrow \nabla^n A_1$}
     \RightLabel{IH}
     \BIC{$\nabla^{n+1} \Gamma, \Sigma \Rightarrow \nabla^n A_1$}
-    \AXC{$\D_1''$} \noLine
-    \UIC{$\Sigma, \nabla^n A_2 \Rightarrow \Delta$}
+
+    \AXC{$\D$}
+
     \RightLabel{$\nabla cut$}
-    \BIC{$\nabla^{n+1} \Gamma, \Sigma^2 \Rightarrow \Delta$}
-    \RightLabel{$Lc$} \doubleLine
+    \BIC{$(\nabla^{n+1} \Gamma)^3, \Sigma^2 \Rightarrow \Delta$}
+
+    \RightLabel{$(Lc)$} \doubleLine
     \UIC{$\nabla^{n+1} \Gamma, \Sigma \Rightarrow \Delta$}
   \end{prooftree}
 

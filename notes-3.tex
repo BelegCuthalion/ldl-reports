@@ -3,7 +3,7 @@
 
 \begin{document}
 {\noindent
-	v 1.1.1 \\
+	v 1.2 \\
   \\
 {\Huge\textbf{A Contraction-free System for STL}}
 }
@@ -148,13 +148,12 @@ We denote the logic of $\gstt$, which is the set of all sequents provable in $\g
 \begin{enumerate}
   \item If $\stt \vdash_h \Gamma, \nabla^n (A \wedge B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n A, \nabla^n B \Rightarrow \Delta$.
   \item If $\stt \vdash_h \Gamma, \nabla^n (A \vee B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n A \Rightarrow \Delta$ and $\stt \vdash_h \Gamma, \nabla^n B \Rightarrow \Delta$.
-  \item If $\stt \vdash_h \Gamma, \nabla^n B, \nabla^{n+1} (A \rightarrow B) \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, \nabla^n B^2 \Rightarrow \Delta$.
   \item If $\stt \vdash_h \Gamma \Rightarrow A \wedge B$ then $\stt \vdash_h \Gamma \Rightarrow A$ and $\stt \vdash_h \Gamma \Rightarrow B$.
 \end{enumerate}
 \hyperref[pr:stt-inversion]{\emph{Proof.}}
 
 
-\section{Theorem}\label{thm:stt-lc-elim} $(Lc)$ If $\stt \vdash_h \Gamma, A^n \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, A \Rightarrow \Delta$.
+\section{Theorem}\label{thm:stt-lc-elim} $(Lc)$ If $\stt \vdash_h \Gamma, A^2 \Rightarrow \Delta$ then $\stt \vdash_h \Gamma, A \Rightarrow \Delta$.
 \hyperref[pr:stt-lc-elim]{\emph{Proof.}}
 
 
@@ -221,39 +220,39 @@ If $\gstt \vdash^{r_0} \Gamma \Rightarrow A$ and $\gstt \vdash^{r_1} \Sigma , \n
 
 
 \section{Proof of \ref{thm:stt-lc-elim}}\label{pr:stt-lc-elim}
-By induction on the proof for $\Gamma, A^{n+1} \Rightarrow \Delta$, which we call $\D$ and ends with rule $R$.
+By induction on the proof for $\Gamma, A^2 \Rightarrow \Delta$, which we call $\D$ and ends with rule $R$.
 Cases for axioms are trivial. All cases where none of occurrences of $A$ are principal are handled by commuting $R$ with $IH(D_i)$. Now suppose $R$ is either of the following and $A$ is principal in $R$.
 \begin{itemize}
   \item[$(L \wedge)$] Let $A = A \wedge B$.
   \begin{prooftree}
     \AXC{$\D_0$} \noLine
-    \UIC{$\Gamma, A, B, (A \wedge B)^n \Rightarrow \Delta$}
+    \UIC{$\Gamma, A, B, A \wedge B \Rightarrow \Delta$}
     \RightLabel{$L \wedge$}
-    \UIC{$\Gamma, (A \wedge B)^{n+1} \Rightarrow \Delta$}		
+    \UIC{$\Gamma, (A \wedge B)^2 \Rightarrow \Delta$}		
   \end{prooftree}
-  Then by Lemma \ref{lem:stt-inversion} we have $\Gamma, A^{n+1}, B^{n+1} \Rightarrow \Delta$. Using induction hypothesis twice, we would have $\Gamma, A, B \Rightarrow \Delta$. $L \wedge$ will result in the desired sequent.
+  Then by Lemma \ref{lem:stt-inversion} we have $\Gamma, A^2, B^2 \Rightarrow \Delta$. Using induction hypothesis twice, we would have $\Gamma, A, B \Rightarrow \Delta$. $L \wedge$ will result in the desired sequent.
 
   \item[$(L \vee)$] Let $A = A \vee B$.
   \begin{prooftree}
     \AXC{$\D_0$} \noLine
-    \UIC{$ \Gamma, A, (A \vee B)^n \Rightarrow \Delta$}
+    \UIC{$ \Gamma, A, A \vee B \Rightarrow \Delta$}
     \AXC{$\D_1$} \noLine
-    \UIC{$\Gamma, B, (A \vee B)^n \Rightarrow \Delta$}
+    \UIC{$\Gamma, B, A \vee B \Rightarrow \Delta$}
     \RightLabel{$L \vee$}
-    \BIC{$ \Gamma, (A \vee B)^{n+1} \Rightarrow \Delta$}		
+    \BIC{$ \Gamma, (A \vee B)^2 \Rightarrow \Delta$}		
   \end{prooftree}
-  By Lemma \ref{lem:stt-inversion} for $\D_0$ and $\D_1$ we have $\Gamma, A^{n+1} \Rightarrow \Delta$ and $\Gamma, B^{n+1} \Rightarrow \Delta$. By induction hypothesis we have $\Gamma, A \Rightarrow \Delta$ and $\Gamma, B \Rightarrow \Delta$. By $L \vee$ we have the desired sequent.
+  By Lemma \ref{lem:stt-inversion} for $\D_0$ and $\D_1$ we have $\Gamma, A^2 \Rightarrow \Delta$ and $\Gamma, B^2 \Rightarrow \Delta$. By induction hypothesis we have $\Gamma, A \Rightarrow \Delta$ and $\Gamma, B \Rightarrow \Delta$. By $L \vee$ we have the desired sequent.
 
   \item[$(L \rightarrow)$] Let $A = \nabla (A \rightarrow B)$.
   \begin{prooftree}
     \AXC{$\D_0$} \noLine
-    \UIC{$\Gamma, (\nabla (A \rightarrow B))^{n+1} \Rightarrow A$}
+    \UIC{$\Gamma, (\nabla (A \rightarrow B))^2 \Rightarrow A$}
     \AXC{$\D_1$} \noLine
-    \UIC{$\Gamma, B, (\nabla (A \rightarrow B))^n \Rightarrow \Delta$}
+    \UIC{$\Gamma, B, (\nabla (A \rightarrow B))^2 \Rightarrow \Delta$}
     \RightLabel{$L \rightarrow$}
-    \BIC{$\Gamma, (\nabla (A \rightarrow B))^{n+1} \Rightarrow \Delta$}
+    \BIC{$\Gamma, (\nabla (A \rightarrow B))^2 \Rightarrow \Delta$}
   \end{prooftree}
-  By Lemma \ref{lem:stt-inversion} for $\D_1$ we have $\Gamma, B^{n+1} \Rightarrow \Delta$. By induction hypothesis we have $\Gamma, \nabla (A \rightarrow B) \Rightarrow A$ and $\Gamma, B$. By $L \rightarrow$ we have the desired sequent.
+  By induction hypothesis we have $\Gamma, \nabla (A \rightarrow B) \Rightarrow A$ and $\Gamma, B, \nabla (A \rightarrow B) \Rightarrow \Delta$. By $L \rightarrow$ we have the desired sequent.
 \end{itemize}
 
 
@@ -322,24 +321,9 @@ Trivial.
   
   \item We need $Lw$ in $\stt$ to add more than one formula to the left-side, at once, since we will have to do so in $L \wedge$ Inversion Lemma, in the case where the $A \wedge B$ is principal in $Lw$.
   
-  \item We can't prove inverse of $L \rightarrow$, because
-  \begin{prooftree}
-    \RightLabel{$Id$}
-    \AXC{$p \Rightarrow p$}
-    \RightLabel{$Id$}
-    \AXC{$q \Rightarrow q$}
-    \RightLabel{$L \rightarrow$}
-    \BIC{$\nabla (p \rightarrow q), p \Rightarrow q$}
-    \RightLabel{$R \rightarrow$}
-    \UIC{$p \rightarrow q \Rightarrow p \rightarrow q$}
-    \RightLabel{$N$}
-    \UIC{$\nabla (p \rightarrow q) \Rightarrow \nabla (p \rightarrow q)$}
-  \end{prooftree}
-  but $q \Rightarrow \nabla (p \rightarrow q)$ needs (implies?) $Fa$.
+  \item We don't need to prove inverse of $L \rightarrow$.
 
   \item Inversion Lemmas for the left-rules are generalized with arbitrary number of $\nabla$s, because in the case for $R \rightarrow$ we would have a $\nabla$ added to the left-side of the premise.
-  
-  \item Not sure if we still have to eliminate generalized contraction.
   
 \end{itemize}
 

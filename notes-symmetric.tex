@@ -438,4 +438,345 @@ A branch of a tableau which ends with either $Cl$, $FT$ or $TF$ is a \emph{close
 \end{enumerate}
 \begin{flushright}$\Box$\end{flushright}
 
+
+\section{Cut-free system for STL} \quad \\
+
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Id$}
+     \UIC{$ A \Rightarrow A$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ta$}
+     \UIC{$ \Rightarrow \top$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ex$}
+     \UIC{$ \nabla^n \bot \Rightarrow $}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n A \Rightarrow \delta$}
+     \RightLabel{$L \wedge_1$}
+     \UIC{$ \Gamma, \nabla^n (A \wedge B) \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n B \Rightarrow \delta$}
+     \RightLabel{$L \wedge_2$}
+     \UIC{$\Gamma, \nabla^n (A \wedge B) \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \AXC{$\Gamma \Rightarrow B$}
+     \RightLabel{$R \wedge$}
+     \BIC{$ \Gamma \Rightarrow A \wedge B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n A \Rightarrow \delta$}
+     \AXC{$\Gamma, \nabla^n B \Rightarrow \delta$}
+     \RightLabel{$L \vee$}
+     \BIC{$ \Gamma, \nabla^n (A \vee B) \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A$}
+     \RightLabel{$R \vee_1$}
+     \UIC{$\Gamma \Rightarrow A \vee B$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow B$}
+     \RightLabel{$R \vee_2$}
+     \UIC{$\Gamma \Rightarrow A \vee B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+  \begin{multicols}{2}
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow \nabla^n A$}
+     \AXC{$\Gamma, \nabla^n B \Rightarrow \delta$}
+     \RightLabel{$L \rightarrow$}
+     \BIC{$\Gamma, \nabla^{n+1} (A \rightarrow B) \Rightarrow \delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\nabla \Gamma, A \Rightarrow B$}
+     \RightLabel{$R \rightarrow$}
+     \UIC{$\Gamma \Rightarrow A \rightarrow B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \delta$}
+    \RightLabel{$L w$}
+    \UIC{$ \Gamma, A \Rightarrow \delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow$}
+    \RightLabel{$R w$}
+     \UIC{$\Gamma \Rightarrow A$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{1}
+  \begin{prooftree}
+    \AXC{$ \Gamma, A, A \Rightarrow \delta$}
+    \RightLabel{$Lc$}
+    \UIC{$\Gamma, A \Rightarrow \delta$}		
+  \end{prooftree}
+\end{multicols}
+
+ \begin{prooftree}
+   \AXC{$\Gamma \Rightarrow \delta$}
+   \RightLabel{$N$}
+   \UIC{$\nabla \Gamma \Rightarrow \nabla \delta$}
+ \end{prooftree}
+
+ \begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A$}
+    \AXC{$\Sigma, A \Rightarrow \delta$}
+    \RightLabel{$cut$}
+    \BIC{$\Gamma, \Sigma \Rightarrow \delta$}
+  \end{prooftree}
+\end{center}
+
+By $\gstl \vdash \Gamma \Rightarrow \delta$ we mean that the sequent $\Gamma \Rightarrow \delta$ provable in this system.
+\pagebreak
+
+\section{Symmetric cut-free system for STL} \quad \\
+
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Id$}
+     \UIC{$A \Rightarrow A$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ta$}
+     \UIC{$\Rightarrow \top$}
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{}
+     \RightLabel{$Ex$}
+     \UIC{$\nabla^n \bot \Rightarrow $}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n A \Rightarrow \Delta$}
+     \RightLabel{$L \wedge_1$}
+     \UIC{$ \Gamma, \nabla^n (A \wedge B) \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n B \Rightarrow \Delta$}
+     \RightLabel{$L \wedge_2$}
+     \UIC{$\Gamma, \nabla^n (A \wedge B) \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A, \Delta$}
+     \AXC{$\Gamma \Rightarrow B, \Delta$}
+     \RightLabel{$R \wedge$}
+     \BIC{$ \Gamma \Rightarrow A \wedge B, \Delta$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{3}
+   \begin{prooftree}
+     \AXC{$ \Gamma, \nabla^n A \Rightarrow \Delta$}
+     \AXC{$\Gamma, \nabla^n B \Rightarrow \Delta$}
+     \RightLabel{$L \vee$}
+     \BIC{$ \Gamma, \nabla^n (A \vee B) \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow A, \Delta$}
+     \RightLabel{$R \vee_1$}
+     \UIC{$\Gamma \Rightarrow A \vee B, \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow B, \Delta$}
+     \RightLabel{$R \vee_2$}
+     \UIC{$\Gamma \Rightarrow A \vee B, \Delta$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+  \begin{multicols}{2}
+   \begin{prooftree}
+     \AXC{$\Gamma \Rightarrow \nabla^n A$}
+     \AXC{$\Gamma, \nabla^n B \Rightarrow \Delta$}
+     \RightLabel{$L \rightarrow$}
+     \BIC{$\Gamma, \nabla^{n+1} (A \rightarrow B) \Rightarrow \Delta$}		
+   \end{prooftree}
+   \columnbreak
+   \begin{prooftree}
+     \AXC{$\nabla \Gamma, A \Rightarrow B$}
+     \RightLabel{$R \rightarrow$}
+     \UIC{$\Gamma \Rightarrow A \rightarrow B$}		
+   \end{prooftree}
+ \end{multicols}
+ 
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \Delta$}
+    \RightLabel{$L w$}
+    \UIC{$ \Gamma, A \Rightarrow \Delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \Delta$}
+    \RightLabel{$R w$}
+     \UIC{$\Gamma \Rightarrow A, \Delta$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma, A, A \Rightarrow \Delta$}
+    \RightLabel{$Lc$}
+    \UIC{$\Gamma, A \Rightarrow \Delta$}		
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A, A, \Delta$}
+    \RightLabel{$Rc$}
+    \UIC{$\Gamma \Rightarrow A, \Delta$}		
+  \end{prooftree}
+\end{multicols}
+
+ \begin{prooftree}
+   \AXC{$\Gamma \Rightarrow \Delta$}
+   \RightLabel{$N$}
+   \UIC{$\nabla \Gamma \Rightarrow \nabla \Delta$}
+ \end{prooftree}
+
+ \begin{center}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow A, \Pi$}
+    \AXC{$\Sigma, A \Rightarrow \Delta$}
+    \RightLabel{$cut$}
+    \BIC{$\Gamma, \Sigma \Rightarrow \Pi, \Delta$}
+  \end{prooftree}
+\end{center}
+
+
+By $\gsstl \vdash \Gamma \Rightarrow \Delta$ we mean that the sequent $\Gamma \Rightarrow \Delta$ provable in this system.
+
+\section{Theorem} \textit{Symmetric and asymmetric cut-free systems are equivalent:}
+
+\quad $\sstl \vdash \Gamma \Rightarrow \Delta$ \quad iff \quad $\stl \vdash \Gamma \Rightarrow \bigvee \Delta$.
+
+\emph{Proof.} Exactly like the previous therem.
+\begin{flushright}$\Box$\end{flushright}
+
+\section{Tableau system for cut-free STL} A cut-free \emph{tableau} for $\stl$ is a tree structure with following cnostructors.
+(Tableaux here are drawn upside down, due to technical problems.)
+
+\begin{multicols}{3}
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$Cl$}
+    \UIC{$\Phi, T A, F A$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$FT$}
+    \UIC{$\Phi, F \top$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\bigotimes$}
+    \RightLabel{$TF$}
+    \UIC{$\Phi, T \nabla^n \bot$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi, F A$}
+    \AXC{$\Phi, F B$}
+    \RightLabel{$F \wedge$}
+    \BIC{$\Phi, F A \wedge B$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Phi, T \nabla^n A, T \nabla^n B$}
+    \RightLabel{$T \wedge$}
+    \UIC{$\Phi, T \nabla^n (A \wedge B)$}
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi, T \nabla^n A$}
+    \AXC{$\Phi, T \nabla^n B$}
+    \RightLabel{$T \vee$}
+    \BIC{$\Phi, T \nabla^n (A \vee B)$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Phi, F A, F B$}
+    \RightLabel{$F \vee$}
+    \UIC{$\Phi, F A \vee B$}
+  \end{prooftree}
+\end{multicols}
+
+ \begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Phi_T, F \nabla^n A$}
+    \AXC{$\Phi, T \nabla^n B$}
+    \RightLabel{$T \rightarrow$}
+    \BIC{$\Phi, T \nabla^{n+1} (A \rightarrow B)$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\nabla \Phi_T, T A, F B$}
+    \RightLabel{$F \rightarrow$}
+    \UIC{$\Phi, F A \rightarrow B$}
+  \end{prooftree}
+\end{multicols}
+
+
+ \begin{prooftree}
+   \AXC{$\Phi$}
+   \RightLabel{$Th$}
+   \UIC{$\Phi, \Psi$}
+ \end{prooftree}
+ 
+ \begin{prooftree}
+   \AXC{$\Phi$}
+   \RightLabel{$N$}
+    \UIC{$\nabla \Phi$}
+ \end{prooftree}
+
+
+A branch of a tableau which ends with either $Cl$, $FT$ or $TF$ is a \emph{closed branch}, otherwise it is \emph{open}. A tableau with no open branch is a \emph{closed tableau}.
+
+\section{Theorem} $\stl \vdash \Gamma \Rightarrow \Delta$ \textit{iff there exists a closed tableau for} $T \Gamma, F \Delta$.
+
+\emph{Proof.} Same as above.
+\begin{flushright}$\Box$\end{flushright}
+
 \end{document}
