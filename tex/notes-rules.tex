@@ -1,5 +1,5 @@
 \documentclass[a4paper, 12pt]{paper}
-\input{preamble}
+\input{../include/preamble}
 
 \begin{document}
 {\noindent
@@ -7,13 +7,6 @@
 {\large\textbf{Generalized Rules of $\ldl$}}
 }
 \\
-
-\begin{lem}
-  $\ldl \not \vdash \{ A_i \to B_i \}_{i \in I} \Rightarrow$ for any $\{ n_i \} : I \to \mathbb{N}$ and $\{ A_i \}, \{ B_i \} : I \to \textbf{Form}$.
-\end{lem}
-\begin{proof}
-  First notice that $\ldl \not \vdash A \to B \Rightarrow$ for any $A$ and $B$, since no rule can derive the implication on the antecedent other that $LW$ over the empty sequent $\Rightarrow$, whose provability implies inconsistency of $\ldl$. It follows that $\ldl \not \vdash \{ A_i \to B_i \}_{i \in I} \Rightarrow$ for any $\{n_i\}$, $\{ A_i \}$ and $\{ B_i \}$ easily by induction on the size of $I$ and using $LW$.
-\end{proof}
 
 \begin{thm}
   Assume $\ldl \vdash \{ \nabla^{n_i} (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^m (C \to D)$ for some finite $I$, some $\{ n_i \} : I \to \mathbb{N}$ and $\{ A_i \}, \{ B_i \} : I \to \textbf{Form}$, and some $m \ge 1$. Then either of the folling holds:
