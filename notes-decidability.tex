@@ -1,0 +1,68 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+	v 2 \\
+{\large\textbf{Decidability of $\ldl$}}
+}
+\\
+\input{dfn/ldl}
+
+\section{Weight}
+\[
+	w_\nabla(A) =
+	\begin{cases}
+		0 & ; A = p, \top, \bot \\
+		w_\nabla(B) + 1 & ; A = \nabla B \\
+		\max(w_\nabla(B), w_\nabla(C)) & ; A = B \Box C \quad (\Box \in \{ \wedge, \vee, \rightarrow, \supset \})
+	\end{cases}
+\]
+
+\[
+	w_\rightarrow(A) =
+	\begin{cases}
+		0 & ; A = p, \top, \bot \\
+		w_\nabla(B) & ; A = \nabla B \\
+		\max(w_\nabla(B), w_\nabla(C)) + 1 & ; A = B \rightarrow C \\
+		\max(w_\nabla(B), w_\nabla(C)) & ; A = B \Box C \quad (\Box \in \{ \wedge, \vee, \supset \})
+	\end{cases}
+\]
+In the following, let $\circ \in \{ \rightarrow, \nabla \}$.
+\[ w_\circ(\Gamma) = \max\{w_\circ(A) \mid A \in \Gamma\} \]
+\[ w_\circ(\Gamma \Rightarrow \Delta) = w_\circ(\Gamma, \Delta) \]
+For any proof-tree $\D$, $\circ$-weight of $\D$, denoted by $w_\circ$, is defined to be the maximum $w_\circ$ among all its sequents. So if $\D$ ends with a rule with conclusion $\Gamma \Rightarrow \Delta$ and premises $\{ \D_i \}$, then
+\[ w_\circ(\D) = \max\{w_\circ(\Gamma \Rightarrow \Delta), w_\circ(\D_i)\} \]
+
+\subsection{Remark}\quad
+\begin{enumerate}
+	\item $w_\circ(\nabla^n A) \le w_\circ(\nabla^n (A \Box B))$, where $\Box \in \{\wedge, \vee, \rightarrow, \supset\}$
+	\item $w_\circ(\Gamma) \le w_\circ(\Gamma, A)$
+	\item $\max(w_\circ(A, B)) = \max(w_\circ(A), w_\circ(B))$
+\end{enumerate}
+
+\section{Upper-bound for $w_\nabla$} For any sequent $\Gamma \Rightarrow \Delta$, if $\vdash \Gamma \Rightarrow \Delta$ then it is provable by a proof-tree $\D$ such that $w_\nabla(\D) \le w_\nabla(\Gamma \Rightarrow \Delta) + w_\rightarrow(\Delta)$.
+
+\emph{Proof.} By induction on the proof of $\Gamma \Rightarrow \Delta$. The cases for axioms are trivial. In all cases, where the last rule is $R$, take the proof-tree from the induction hypothesis, called $\D'$ (and $\D''$, for binary rules), and observe that applying $R$ will not increase the $\nabla$-weight of the resulting proof-tree, which we call $\D$, more than the desired upper-bound. The claim is clear when $R$ is $LW$ or $Rw$. Such is the case for $R \wedge$, $R \vee_1$, $R \vee_2$, $R \supset$, $L \wedge^n$, $L \vee^n$ or $L \supset^n$, since the $\nabla$-weight does not increase in the conclusion. For example, let $R$ be $R \wedge$. We have
+\[ w_\nabla(\D') \le w_\nabla(\Gamma, A) + w_\rightarrow(A) \]
+\[ w_\nabla(\D'') \le w_\nabla(\Gamma, B) + w_\rightarrow(B) \]
+Construct $\D$ by applying $R \wedge$ on $\D'$ and $\D''$. By definition
+\[ w_\nabla(\D) = \max\{w_\nabla(\Gamma, A \wedge B), w_\nabla(\D'), w_\nabla(\D'')\} \]
+So we have three cases. If $w_\nabla(\D) \le w_\nabla(\Gamma, A \wedge B)$ the claim is clear. If $w_\nabla(\D) \le w_\nabla(\D')$ then we have
+\[ w_\nabla(\D) \le w_\nabla(\Gamma, A) + w_\rightarrow(A) \]
+By Remark we have
+\[ w_\nabla(\D) \le w_\nabla(\Gamma, A \wedge B) + w_\rightarrow(A \wedge B) \]
+The other case where $w_\nabla(\D) \le w_\nabla(\D'')$ is similar.
+
+Let $R$ be $L \supset^n$. We have
+\[ w_\nabla(\D') \le w_\nabla(\Gamma, \nabla^n (A \supset B), \nabla^n A) + w_\rightarrow(\nabla^n A) \]
+\[ w_\nabla(\D'') \le w_\nabla(\Gamma, \nabla^n B, \Delta) + w_\rightarrow(\Delta) \]
+Construct $\D$ by applying $R \supset^n$ on $\D'$ and $\D''$. By definition
+\[ w_\nabla(\D) = \max\{w_\nabla(\Gamma, \nabla^n (A \supset B), \Delta), w_\nabla(\D'), w_\nabla(\D'')\} \]
+The first case is clear. If $w_\nabla(\D) \le w_\nabla(\D')$ then we have
+\[ w_\nabla(\D'') \le w_\nabla(\D') \]
+\[ w_\nabla(\Gamma, \nabla^n (A \supset B), \Delta) \le w_\nabla(\Gamma, \nabla^n (A \supset B), \nabla^n A) + w_\rightarrow(\nabla^n A) \]
+\[ w_\nabla(\D) \le w_\nabla(\Gamma, \nabla^n (A \supset B), \nabla^n A) + w_\rightarrow(\nabla^n A) \]
+We want to prove
+\[ w_\nabla(D) \le w_\nabla(\Gamma, \nabla^n (A \supset B), \Delta) + w_\rightarrow(\Delta) \]
+\end{document} 
