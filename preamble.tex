@@ -14,6 +14,19 @@
 \usepackage[colorlinks, hypertexnames=false]{hyperref}
 \usepackage{bussproofs}
 \usepackage[normalem]{ulem}
+\usepackage{amsthm}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\renewcommand{\thethm}{\arabic{thm}}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{dfn}[thm]{Definition}
+\newtheorem{exam}[thm]{Example}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{nota}[thm]{Notation}
+\newtheorem{obs}[thm]{Observation}
 
 \setitemize{topsep=3pt,parsep=5pt,partopsep=0pt,label=,leftmargin=1.3pc}
 \titleformat{\section}[runin]{\normalfont\bfseries}{\thesection}{0.5em}{}
@@ -50,8 +63,19 @@
 \newcommand{\gsttl}{\mathbf{GST3L}}
 \newcommand{\istt}{\text{iST3}}
 \newcommand{\igstt}{\text{iGST3}}
+\newcommand{\ldl}{\mathbf{LDL}}
+\newcommand{\qldl}{\mathbf{QLDL}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\IH}{\text{IH}}
-\newcommand{\qed}{{\begin{flushright}$\Box$\end{flushright}}}
+% \newcommand{\qed}{{\begin{flushright}$\Box$\end{flushright}}}
 \newtheorem{proposition}{}[section]
 \EnableBpAbbreviations
+
+\def\L{\mathcal{L}}
+\def\ldl{\mathsf{LDL}}
+\def\LDL{\mathbf{LDL}}
+\def\iSTLN{\mathbf{iSTL(N)}}
+\def\GSTN{\mathbf{GSTN}}
+
+\def\D{\mathcal{D}}
+\def\IH{\mathrm{IH}}
