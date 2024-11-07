@@ -1,0 +1,105 @@
+\begin{multicols}{3}
+  \begin{prooftree}
+    \AXC{}
+    \RightLabel{$Id ^p$}
+    \UIC{$p \Rightarrow p$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{}
+    \RightLabel{$L \bot$}
+    \UIC{$\uwave{\bot} \Rightarrow$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{}
+    \RightLabel{$R \top$}
+    \UIC{$\Rightarrow \uwave{\top}$}
+  \end{prooftree}
+\end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow \Delta$}
+    \RightLabel{$LW$}
+    \UIC{$ \Gamma, {\Sigma} \Rightarrow \Delta$}
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$ \Gamma \Rightarrow$}
+    \RightLabel{$Rw$}
+     \UIC{$\Gamma \Rightarrow {A}$}		
+  \end{prooftree}
+ \end{multicols}
+
+\begin{multicols}{2}
+  \begin{prooftree}
+    \AXC{$\Gamma, \nabla^n A, \nabla^n B \Rightarrow \Delta$}
+    \RightLabel{$L \wedge ^n$}
+    \UIC{$\Gamma, \uwave{\nabla^n (A \wedge B)} \Rightarrow \Delta$}		
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Gamma \Rightarrow A$}
+    \AXC{$\Gamma \Rightarrow B$}
+    \RightLabel{$R \wedge$}
+    \BIC{$ \Gamma \Rightarrow \uwave{A \wedge B}$}		
+  \end{prooftree}
+\end{multicols}
+
+\begin{prooftree}
+  \AXC{$ \Gamma, \nabla^n A \Rightarrow \Delta$}
+  \AXC{$\Gamma, \nabla^n B \Rightarrow \Delta$}
+  \RightLabel{$L \vee ^n$}
+  \BIC{$ \Gamma, \uwave{\nabla^n (A \vee B)} \Rightarrow \Delta$}		
+\end{prooftree}
+
+\begin{multicols}{2}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Gamma \Rightarrow A$}
+    \RightLabel{$R \vee_1$}
+    \UIC{$\Gamma \Rightarrow \uwave{A \vee B}$}		
+  \end{prooftree}
+  \columnbreak
+  \begin{prooftree}
+    \AXC{$\Gamma \Rightarrow B$}
+    \RightLabel{$R \vee_2$}
+    \UIC{$\Gamma \Rightarrow \uwave{A \vee B}$}		
+  \end{prooftree}
+\end{multicols}
+
+
+\begin{prooftree}
+  \AXC{$\Gamma, \nabla^{n+1} (A \rightarrow B) \Rightarrow \nabla^n A$}
+  \AXC{$\Gamma, \nabla^{n+1} (A \rightarrow B), \nabla^n B \Rightarrow \Delta$}
+  \RightLabel{$L \rightarrow ^n$}
+  \BIC{$\Gamma, \uwave{\nabla^{n+1} (A \rightarrow B)} \Rightarrow \Delta$}		
+\end{prooftree}
+
+\begin{prooftree}
+  \AXC{$\nabla \Gamma, A \Rightarrow B$}
+  \RightLabel{$R \rightarrow$}
+  \UIC{$\Gamma \Rightarrow \uwave{A \rightarrow B}$}		
+\end{prooftree}
+
+\begin{prooftree}
+  \AXC{$\Gamma, \nabla^n (A \supset B) \Rightarrow \nabla^n A$}
+  \AXC{$\Gamma, \nabla^n B \Rightarrow \Delta$}
+  \RightLabel{$L \supset ^n$}
+  \BIC{$\Gamma, \uwave{\nabla^n (A \supset B)} \Rightarrow \Delta$}		
+\end{prooftree}
+
+\begin{prooftree}
+  \AXC{$\Gamma, A \Rightarrow B$}
+  \RightLabel{$R \supset$}
+  \UIC{$\Gamma \Rightarrow \uwave{A \supset B}$}		
+\end{prooftree}
+
+\begin{prooftree}
+  \AXC{$\Gamma \Rightarrow \Delta$}
+  \RightLabel{$N$}
+  \UIC{$\nabla \Gamma \Rightarrow \nabla \Delta$}
+\end{prooftree}
+
+We refer to the rules $Id ^p$, $L \bot$ and $R \top$ as the \emph{axioms}, $L \wedge ^n$, $R \wedge$, $L \vee ^n$, $R \vee_1$, $R \vee_2$, $L \rightarrow ^n$, $R \rightarrow$, $L \supset ^n$ and $R \supset$ as the \emph{logical rules}, and $LW$ and $RW$ as the \emph{structural rules}.
