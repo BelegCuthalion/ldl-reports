@@ -1,0 +1,43 @@
+\documentclass[a4paper, 12pt]{paper}
+\input{preamble}
+
+\begin{document}
+{\noindent
+  v 1 \\
+{\large\textbf{Generalized Rules of $\ldl$}}
+}
+\\
+
+\begin{lem}
+  $\ldl \not \vdash \{ A_i \to B_i \}_{i \in I} \Rightarrow$ for any $\{ n_i \} : I \to \mathbb{N}$ and $\{ A_i \}, \{ B_i \} : I \to \textbf{Form}$.
+\end{lem}
+\begin{proof}
+  First notice that $\ldl \not \vdash A \to B \Rightarrow$ for any $A$ and $B$, since no rule can derive the implication on the antecedent other that $LW$ over the empty sequent $\Rightarrow$, whose provability implies inconsistency of $\ldl$. It follows that $\ldl \not \vdash \{ A_i \to B_i \}_{i \in I} \Rightarrow$ for any $\{n_i\}$, $\{ A_i \}$ and $\{ B_i \}$ easily by induction on the size of $I$ and using $LW$.
+\end{proof}
+
+\begin{thm}
+  Assume $\ldl \vdash \{ \nabla^{n_i} (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^m (C \to D)$ for some finite $I$, some $\{ n_i \} : I \to \mathbb{N}$ and $\{ A_i \}, \{ B_i \} : I \to \textbf{Form}$, and some $m \ge 1$. Then either of the folling holds:
+  \begin{enumerate}
+    \item $\ldl \vdash \{ \nabla^n_i (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^{n_k - 1} A_k$ for some $k \in I$ such that $n_k \ge 1$.
+    \item $n_i \ge 1$ for all $i \in I$ and $\ldl \vdash \{ \nabla^{n_i - 1} (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^{m - 1} (C \to D)$.
+  \end{enumerate}
+\end{thm}
+\begin{proof}
+
+
+  By induction on the proof-tree for $\{ \nabla^{n_i} (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^m (C \to D)$. Observe that this proof-tree cannot end with any of the axioms or the logical rules other that $L \to$. The cases for $L \to$ and $N$ are trivial. So we consider the cases where the proof-tree ends with $LW$ or $Rw$. 
+
+  In the case for $LW$, we use induction hypothesis and thus, we have two sub-cases:
+  \begin{enumerate}
+    \item $\ldl \vdash \{ \nabla^{n_i} (A_i \to B_i) \}_{i \in J} \Rightarrow \nabla^{n_k - 1} A_k$ for some $k \in J$ such that $n_k \ge 1$, or
+    \item $\ldl \vdash \{ \nabla^{n_i - 1} (A_i \to B_i) \}_{i \in J} \Rightarrow \nabla^{m - 1} (C \to D)$, and $n_i \ge 1$ for all $i \in J$
+  \end{enumerate}
+  wherer $J \subsetneq I$.
+  
+  In both cases, use $LW$ again to reach $$\{ \nabla^{n_i} (A_i \to B_i) \}_{i \in J} \Rightarrow \nabla^{n_k - 1} A_k$$ or $$\{ \nabla^{n_i - 1} (A_i \to B_i) \}_{i \in I} \Rightarrow \nabla^{m - 1} (C \to D)$$ respectively.
+
+  In the case for $Rw$, just pick some $k \in I$ such that $n_{k} \ge 1$ and add it to the antecedent using $Rw$ to reach $$ \{ \nabla^{n_i} (A_i \to B_i) \}_{i \in J} \Rightarrow \nabla^{n_k - 1} A_k $$
+  Previous Lemma guarantees that such $k$ exists.
+\end{proof}
+
+\end{document}
